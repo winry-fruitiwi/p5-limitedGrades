@@ -45,12 +45,21 @@ function setup() {
 
 
 function draw() {
-    background(234, 34, 24)
+    background(0, 0, 9)
+
+    // first row/column light gray
+    noStroke()
+    fill(0, 0, 32)
+    rect(0, 0, 40, 40)
+
+    // card background dark gray
+    fill(0, 0, 14)
+    rect(50, 50, 90, 90)
 
     /* debugCorner needs to be last so its z-index is highest */
     debugCorner.setText(`frameCount: ${frameCount}`, 2)
     debugCorner.setText(`fps: ${frameRate().toFixed(0)}`, 1)
-    debugCorner.showBottom()
+    // debugCorner.showBottom()
 
     if (frameCount > 3000)
         noLoop()
