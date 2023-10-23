@@ -20,6 +20,7 @@ let fixedWidthFont
 let variableWidthFont
 let instructions
 let debugCorner /* output debug text in the bottom left corner of the canvas */
+let BACKGROUND_COLOR
 
 
 function preload() {
@@ -30,7 +31,7 @@ function preload() {
 
 
 function setup() {
-    let cnv = createCanvas(600, 300)
+    let cnv = createCanvas(windowWidth, 600)
     cnv.parent('#canvas')
     colorMode(HSB, 360, 100, 100, 100)
     textFont(font, 14)
@@ -41,20 +42,15 @@ function setup() {
         numpad 1 → freeze sketch</pre>`)
 
     debugCorner = new CanvasDebugCorner(5)
+
+    BACKGROUND_COLOR = color(0, 0, 9)
 }
 
 
 function draw() {
-    background(0, 0, 9)
+    background(0, 0, 14)
 
-    // first row/column light gray
-    noStroke()
-    fill(0, 0, 32)
-    rect(0, 0, 40, 40)
-
-    // card background dark gray
-    fill(0, 0, 14)
-    rect(50, 50, 90, 90)
+    drawCardNames()
 
     /* debugCorner needs to be last so its z-index is highest */
     debugCorner.setText(`frameCount: ${frameCount}`, 2)
@@ -63,6 +59,25 @@ function draw() {
 
     if (frameCount > 3000)
         noLoop()
+}
+
+
+function drawCardNames() {
+    const FIRST_ROW_HEIGHT = 60
+    const FIRST_COLUMN_WIDTH = 100
+
+    // first row/column light gray
+    noStroke()
+
+    // draw the first row and column
+    fill(0, 0, 32)
+    rect(0, 0, width, FIRST_ROW_HEIGHT)
+    rect(0, 0, FIRST_COLUMN_WIDTH, height)
+
+    stroke(BACKGROUND_COLOR)
+    strokeWeight(3)
+    noFill()
+    line(0, FIRST_ROW_HEIGHT, width, FIRST_ROW_HEIGHT)
 }
 
 
