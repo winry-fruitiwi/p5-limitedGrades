@@ -1,6 +1,17 @@
 /**
- *  @author 
- *  @date 2023.
+ *  @author Winry Tian
+ *  @date 2023.10.22
+ *
+ *  This is an imitation of limitedGrades.com, but on p5.js canvas.
+ *
+ *  The new features I'm aiming to implement are:
+ *      Improved search bar: looking up multiple cards at once with fuzzywuzzy.
+ *      Maybe functionality in DevTools: controls.
+ *
+ *  I'm not planning to keep:
+ *      Changing between data for sets. This depends on py-util's development.
+ *      Most buttons. They'll be replaced by hotkeys.
+ *      Type filters. This will mostly be replaced by improved search bar.
  *
  */
 
