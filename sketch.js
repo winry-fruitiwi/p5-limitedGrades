@@ -31,7 +31,7 @@ function preload() {
 
 
 function setup() {
-    let cnv = createCanvas(windowWidth, 600)
+    let cnv = createCanvas(windowWidth - 40 /* random margin */, 700)
     cnv.parent('#canvas')
     colorMode(HSB, 360, 100, 100, 100)
     textFont(font, 14)
@@ -64,7 +64,8 @@ function draw() {
 
 function drawCardNames() {
     const FIRST_ROW_HEIGHT = 60
-    const FIRST_COLUMN_WIDTH = 100
+    const FIRST_COLUMN_WIDTH = 60
+    const COLUMN_MARGIN = 10  // margin on either side, not total margin
 
     // first row/column light gray
     noStroke()
@@ -78,6 +79,17 @@ function drawCardNames() {
     strokeWeight(3)
     noFill()
     line(0, FIRST_ROW_HEIGHT, width, FIRST_ROW_HEIGHT)
+
+    // this contains the margin as well
+    let columnWidth = (width - FIRST_COLUMN_WIDTH)/7 // 7 = number of columns
+
+    for (let i = 0; i < 7; i++) {
+        let pos = i * columnWidth + FIRST_COLUMN_WIDTH
+        stroke(50 * i, 60, 60)
+        rect(pos + COLUMN_MARGIN, 0,
+            columnWidth - COLUMN_MARGIN, height
+        )
+    }
 }
 
 
