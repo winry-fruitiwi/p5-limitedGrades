@@ -83,12 +83,32 @@ function drawCardNames() {
     // this contains the margin as well
     let columnWidth = (width - FIRST_COLUMN_WIDTH)/7 // 7 = number of columns
 
+    // list of svgs/characters to display in each column
+    let manaDisplaySymbols = [
+        'W',
+        'U',
+        'B',
+        'R',
+        'G',
+        '🪙',
+        'C'
+    ]
+
     for (let i = 0; i < 7; i++) {
         let pos = i * columnWidth + FIRST_COLUMN_WIDTH
+        noFill()
+        strokeWeight(2)
         stroke(50 * i, 60, 60)
         rect(pos + COLUMN_MARGIN, 0,
             columnWidth - COLUMN_MARGIN, height
         )
+
+        let text_center = new p5.Vector(pos + columnWidth/2, FIRST_ROW_HEIGHT/2)
+
+        noStroke()
+        fill(0, 0, 80)
+        textSize(28)
+        text(manaDisplaySymbols[i], text_center.x, text_center.y)
     }
 }
 
