@@ -90,10 +90,11 @@ function drawCardNames() {
         'B',
         'R',
         'G',
-        '🪙',
+        'GOLD',
         'C'
     ]
 
+    // draw the column rectangles
     for (let i = 0; i < 7; i++) {
         let pos = i * columnWidth + FIRST_COLUMN_WIDTH
         noFill()
@@ -103,11 +104,12 @@ function drawCardNames() {
             columnWidth - COLUMN_MARGIN, height
         )
 
-        let text_center = new p5.Vector(pos + columnWidth/2, FIRST_ROW_HEIGHT/2)
-
+        // find the center of the text and then display it completely centered
+        let text_center = new p5.Vector(pos + columnWidth/2 + COLUMN_MARGIN/2, FIRST_ROW_HEIGHT/2)
         noStroke()
         fill(0, 0, 80)
         textSize(28)
+        textAlign(CENTER, CENTER)
         text(manaDisplaySymbols[i], text_center.x, text_center.y)
     }
 }
