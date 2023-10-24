@@ -66,6 +66,7 @@ function drawCardNames() {
     const FIRST_ROW_HEIGHT = 60
     const FIRST_COLUMN_WIDTH = 60
     const COLUMN_MARGIN = 10  // margin on either side, not total margin
+    const ROW_MARGIN = 10
 
     // first row/column light gray
     noStroke()
@@ -94,6 +95,24 @@ function drawCardNames() {
         'C'
     ]
 
+    // list of all possible grades to display in each row
+    let grades = [
+        'S',
+        'A+',
+        'A',
+        'A-',
+        'B+',
+        'B',
+        'B-',
+        'C+',
+        'C',
+        'C-',
+        'D+',
+        'D',
+        'D-',
+        'F'
+    ]
+
     // draw the column rectangles
     for (let i = 0; i < 7; i++) {
         let pos = i * columnWidth + FIRST_COLUMN_WIDTH
@@ -111,6 +130,21 @@ function drawCardNames() {
         textSize(28)
         textAlign(CENTER, CENTER)
         text(manaDisplaySymbols[i], text_center.x, text_center.y)
+    }
+
+    // hardcoded constant for now
+    let rowHeight = 40
+
+    // draw the row rectangles
+    for (let i = 0; i < grades.length; i++) {
+        let pos = i*rowHeight + ROW_MARGIN + FIRST_ROW_HEIGHT
+
+        noFill()
+        strokeWeight(2)
+        stroke(20, 7*i, 80)
+        rect(0, pos + ROW_MARGIN,
+             width, rowHeight - ROW_MARGIN
+        )
     }
 }
 
