@@ -140,9 +140,11 @@ function drawCardNames() {
         let pos = i*rowHeight + ROW_MARGIN + FIRST_ROW_HEIGHT
 
         noFill()
-        strokeWeight(2)
+        strokeWeight(10)
         stroke(20, 7*i, 80)
-        rect(0, pos + ROW_MARGIN,
+        point(0, pos)
+        strokeWeight(2)
+        rect(0, pos,
              width, rowHeight - ROW_MARGIN
         )
     }
