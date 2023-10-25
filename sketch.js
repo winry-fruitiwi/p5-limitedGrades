@@ -139,14 +139,16 @@ function drawCardNames() {
     for (let i = 0; i < grades.length; i++) {
         let pos = i*rowHeight + ROW_MARGIN + FIRST_ROW_HEIGHT
 
-        noFill()
-        strokeWeight(10)
-        stroke(20, 7*i, 80)
-        point(0, pos)
         strokeWeight(2)
+        stroke(20, 7*i, 80)
+        noFill()
         rect(0, pos,
              width, rowHeight - ROW_MARGIN
         )
+
+        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/2, pos + rowHeight/2 - ROW_MARGIN/2)
+        strokeWeight(4)
+        point(text_center)
     }
 }
 
