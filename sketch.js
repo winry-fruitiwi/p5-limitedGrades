@@ -131,6 +131,9 @@ function drawCardNames() {
         text(manaDisplaySymbols[i], text_center.x, text_center.y)
     }
 
+    // required height of canvas
+    let requiredHeight = 0
+
     // hardcoded constant for now
     let rowHeight = 35
 
@@ -158,7 +161,12 @@ function drawCardNames() {
         fill(0, 0, 80)
 
         text(grades[i], text_center.x, text_center.y)
+
+        requiredHeight += rowHeight
     }
+
+    if (frameCount % 100 === 0)
+        resizeCanvas(windowWidth - 40, requiredHeight + FIRST_ROW_HEIGHT)
 }
 
 
