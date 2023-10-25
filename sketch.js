@@ -66,7 +66,6 @@ function drawCardNames() {
     const FIRST_ROW_HEIGHT = 60
     const FIRST_COLUMN_WIDTH = 60
     const COLUMN_MARGIN = 10  // margin on either side, not total margin
-    const ROW_MARGIN = 10
 
     // first row/column light gray
     noStroke()
@@ -118,7 +117,7 @@ function drawCardNames() {
         let pos = i * columnWidth + FIRST_COLUMN_WIDTH
         noFill()
         strokeWeight(2)
-        stroke(50 * i, 60, 60)
+        stroke(0, 0, 40 + 6*i)
         rect(pos + COLUMN_MARGIN, 0,
             columnWidth - COLUMN_MARGIN, height
         )
@@ -133,23 +132,23 @@ function drawCardNames() {
     }
 
     // hardcoded constant for now
-    let rowHeight = 40
+    let rowHeight = 35
 
     // draw the row rectangles
     for (let i = 0; i < grades.length; i++) {
-        let pos = i*rowHeight + ROW_MARGIN + FIRST_ROW_HEIGHT
+        let pos = i*rowHeight + FIRST_ROW_HEIGHT
 
         strokeWeight(2)
-        stroke(20, 7*i, 80)
+        stroke(BACKGROUND_COLOR)
         noFill()
 
-        rect(0, pos,
-             width, rowHeight - ROW_MARGIN
+        rect(-20, pos,
+             width + 60, rowHeight
         )
 
         // compute the text center and display the text, left-aligned. I used
         // stroke to bold the text.
-        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/3, pos + rowHeight/2 - ROW_MARGIN/2)
+        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/3, pos + rowHeight/2)
 
         textAlign(LEFT, CENTER)
         textSize(22)
