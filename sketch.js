@@ -142,13 +142,23 @@ function drawCardNames() {
         strokeWeight(2)
         stroke(20, 7*i, 80)
         noFill()
+
         rect(0, pos,
              width, rowHeight - ROW_MARGIN
         )
 
+        // compute the text center and display the text completely centered.
+        // I used stroke to bold the text.
         let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/2, pos + rowHeight/2 - ROW_MARGIN/2)
-        strokeWeight(4)
-        point(text_center)
+
+        textAlign(CENTER, CENTER)
+        textSize(20)
+
+        stroke(0, 0, 80)
+        strokeWeight(0.5)
+        fill(0, 0, 80)
+
+        text(grades[i], text_center.x, text_center.y)
     }
 }
 
