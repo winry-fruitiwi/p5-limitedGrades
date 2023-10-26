@@ -68,6 +68,7 @@ function drawCardNames() {
     const FIRST_ROW_HEIGHT = 60
     const FIRST_COLUMN_WIDTH = 60
     const COLUMN_MARGIN = 10  // margin on either side, not total margin
+    const COLOR_WIDTH = 5
 
     // first row/column light gray
     noStroke()
@@ -142,6 +143,13 @@ function drawCardNames() {
     // draw the row rectangles
     for (let i = 0; i < grades.length; i++) {
         let pos = i*rowHeight + FIRST_ROW_HEIGHT
+
+        noStroke()
+        fill(137 + 16*i, 82, 77)
+
+        rect(0, pos,
+            COLOR_WIDTH, rowHeight
+        )
 
         strokeWeight(2)
         stroke(BACKGROUND_COLOR)
