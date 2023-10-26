@@ -21,6 +21,7 @@ let variableWidthFont
 let instructions
 let debugCorner /* output debug text in the bottom left corner of the canvas */
 let BACKGROUND_COLOR
+let requiredHeight /* variable used for resizing the canvas every draw frame */
 
 
 function preload() {
@@ -48,9 +49,10 @@ function setup() {
 
 
 function draw() {
+    resizeCanvas(windowWidth - 40, requiredHeight)
     background(0, 0, 14)
 
-    drawCardNames()
+    requiredHeight = drawCardNames()
 
     /* debugCorner needs to be last so its z-index is highest */
     debugCorner.setText(`frameCount: ${frameCount}`, 2)
@@ -165,8 +167,7 @@ function drawCardNames() {
         requiredHeight += rowHeight
     }
 
-    if (frameCount % 100 === 0)
-        resizeCanvas(windowWidth - 40, requiredHeight + FIRST_ROW_HEIGHT)
+    return requiredHeight + FIRST_ROW_HEIGHT
 }
 
 
