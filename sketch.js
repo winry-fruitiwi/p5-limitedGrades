@@ -145,7 +145,7 @@ function drawCardNames() {
         let pos = i*rowHeight + FIRST_ROW_HEIGHT
 
         noStroke()
-        fill(137 + 16*i, 82, 77)
+        fill(137 - 11*i, 82, 77)
 
         rect(0, pos,
             COLOR_WIDTH, rowHeight
