@@ -52,6 +52,10 @@ function processMasterData() {
         print(cardName)
         if (card["color"] === "") {
             buckets["C"][cardName] = card
+        } else if (card["color"].length === 1) {
+            buckets[card["color"]][cardName] = card
+        } else {
+            buckets["GOLD"][cardName] = card
         }
     }
 
