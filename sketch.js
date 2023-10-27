@@ -22,12 +22,40 @@ let instructions
 let debugCorner /* output debug text in the bottom left corner of the canvas */
 let BACKGROUND_COLOR
 let requiredHeight /* variable used for resizing the canvas every draw frame */
+let masterJSON
 
 
 function preload() {
     font = loadFont('data/consola.ttf')
     fixedWidthFont = loadFont('data/consola.ttf')
     variableWidthFont = loadFont('data/meiryo.ttf')
+
+    masterJSON = loadJSON('master.json')
+}
+
+
+// iterates through each card and process each card into buckets
+function processMasterData() {
+    // buckets for each card to go into
+    let buckets = {
+        "W": {},
+        "U": {},
+        "B": {},
+        "R": {},
+        "G": {},
+        "C": {},
+        "GOLD": {}
+    }
+
+    for (let cardName of Object.keys(masterJSON)) {
+        let card = masterJSON[cardName]
+        print(cardName)
+        if (card["color"] === "") {
+            buckets["C"][cardName] = card
+        }
+    }
+
+    print(buckets)
 }
 
 
@@ -45,6 +73,8 @@ function setup() {
     debugCorner = new CanvasDebugCorner(5)
 
     BACKGROUND_COLOR = color(0, 0, 9)
+
+    processMasterData()
 }
 
 
