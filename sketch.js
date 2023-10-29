@@ -23,6 +23,7 @@ let debugCorner /* output debug text in the bottom left corner of the canvas */
 let BACKGROUND_COLOR
 let requiredHeight /* variable used for resizing the canvas every draw frame */
 let masterJSON
+let cardBuckets
 
 
 function preload() {
@@ -178,7 +179,7 @@ function processMasterData() {
         colorBucket[cardGrade][cardName] = card
     }
 
-
+    return buckets
 }
 
 
@@ -197,7 +198,7 @@ function setup() {
 
     BACKGROUND_COLOR = color(0, 0, 9)
 
-    processMasterData()
+    cardBuckets = processMasterData()
 }
 
 
@@ -324,6 +325,15 @@ function drawCardNames() {
         fill(0, 0, 80)
 
         text(grades[i], text_center.x, text_center.y)
+
+        // get ready to display text for each of the other color buckets
+        for (let color of Object.keys(cardBuckets)) {
+            let gradeBuckets = cardBuckets[color]
+            let gradeData = gradeBuckets[grades[i]]
+
+            if (frameCount % 100 === 0)
+                console.log(gradeData)
+        }
 
         requiredHeight += rowHeight
     }
