@@ -168,12 +168,12 @@ function processMasterData() {
             colorBucket = buckets["GOLD"]
         }
 
-        let cardGrade = card["stats"]["all"]["all"]["GIH grade"]
+        let cardGrade
 
-        console.log(cardName)
-        console.log(colorBucket)
-        console.log(cardGrade)
-        console.log(colorBucket[cardGrade])
+        if (card["stats"]["all"]["all"])
+            cardGrade = card["stats"]["all"]["all"]["GIH grade"]
+        else
+            continue
 
         colorBucket[cardGrade][cardName] = card
     }
