@@ -39,132 +39,146 @@ function processMasterData() {
     // buckets for each card to go into
     let buckets = {
         "W": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         },
         "U": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         },
         "B": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         },
         "R": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         },
         "G": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         },
         "C": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         },
         "GOLD": {
-            "S": {},
+            "S ": {},
             "A+": {},
-            "A": {},
+            "A ": {},
             "A-": {},
             "B+": {},
-            "B": {},
+            "B ": {},
             "B-": {},
             "C+": {},
-            "C": {},
+            "C ": {},
             "C-": {},
             "D+": {},
-            "D": {},
+            "D ": {},
             "D-": {},
-            "F": {},
+            "F ": {},
         }
     }
+    let colorBucket
 
     for (let cardName of Object.keys(masterJSON)) {
         let card = masterJSON[cardName]
-        print(cardName)
+
         if (card["color"] === "") {
-            buckets["C"][cardName] = card
-        } else if (card["color"].length === 1) {
-            buckets[card["color"]][cardName] = card
-        } else {
-            buckets["GOLD"][cardName] = card
+            colorBucket = buckets["C"]
         }
+
+        else if (card["color"].length === 1) {
+            colorBucket = buckets[card["color"]]
+        }
+
+        else {
+            colorBucket = buckets["GOLD"]
+        }
+
+        let cardGrade = card["stats"]["all"]["all"]["GIH grade"]
+
+        console.log(cardName)
+        console.log(colorBucket)
+        console.log(cardGrade)
+        console.log(colorBucket[cardGrade])
+
+        colorBucket[cardGrade][cardName] = card
     }
 
-    print(buckets)
+
 }
 
 
