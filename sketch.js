@@ -299,6 +299,7 @@ function drawCardNames() {
         let pos = nextRowPos
 
         textSize(15)
+        textAlign(LEFT, TOP)
 
         // the longest set of card names
         let longestBucketLength = 0
@@ -306,7 +307,9 @@ function drawCardNames() {
         // get ready to display text for each of the other color buckets
         for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
             let color = Object.keys(cardBuckets)[j]
-            let cardNameStartPos = new p5.Vector(j * columnWidth + FIRST_COLUMN_WIDTH, pos)
+            let cardNameStartPos = new p5.Vector(
+                j * columnWidth + COLUMN_MARGIN + FIRST_COLUMN_WIDTH,
+                pos)
 
             let gradeBuckets = cardBuckets[color]
             let gradeData = gradeBuckets[grades[i]]
@@ -316,6 +319,8 @@ function drawCardNames() {
 
                 let cardNamePos = new p5.Vector(cardNameStartPos.x,
                     cardNameStartPos.y + textAscent()*k)
+
+                noStroke()
                 text(cardName, cardNamePos.x, cardNamePos.y)
             }
 
