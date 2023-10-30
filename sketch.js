@@ -152,22 +152,9 @@ function processMasterData() {
             "F ": {},
         }
     }
-    let colorBucket
 
     for (let cardName of Object.keys(masterJSON)) {
         let card = masterJSON[cardName]
-
-        if (card["color"] === "") {
-            colorBucket = buckets["C"]
-        }
-
-        else if (card["color"].length === 1) {
-            colorBucket = buckets[card["color"]]
-        }
-
-        else {
-            colorBucket = buckets["GOLD"]
-        }
 
         let cardGrade
 
@@ -176,8 +163,20 @@ function processMasterData() {
         else
             continue
 
-        colorBucket[cardGrade][cardName] = card
+        if (card["color"] === "") {
+            buckets["C"][cardGrade][cardName] = card
+        }
+
+        else if (card["color"].length === 1) {
+            buckets[card["color"]][cardGrade][cardName] = card
+        }
+
+        else {
+            buckets["GOLD"][cardGrade][cardName] = card
+        }
     }
+
+    console.log(buckets)
 
     return buckets
 }
@@ -253,20 +252,20 @@ function drawCardNames() {
 
     // list of all possible grades to display in each row
     let grades = [
-        'S',
+        'S ',
         'A+',
-        'A',
+        'A ',
         'A-',
         'B+',
-        'B',
+        'B ',
         'B-',
         'C+',
-        'C',
+        'C ',
         'C-',
         'D+',
-        'D',
+        'D ',
         'D-',
-        'F'
+        'F '
     ]
 
     // draw the column rectangles
@@ -327,12 +326,16 @@ function drawCardNames() {
         text(grades[i], text_center.x, text_center.y)
 
         // get ready to display text for each of the other color buckets
-        for (let color of Object.keys(cardBuckets)) {
+        for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
+            let color = Object.keys(cardBuckets)[j]
+            let cardNamePos = new p5.Vector(j * columnWidth + FIRST_COLUMN_WIDTH, pos)
+
             let gradeBuckets = cardBuckets[color]
             let gradeData = gradeBuckets[grades[i]]
 
-            if (frameCount % 100 === 0)
-                console.log(gradeData)
+            for (let cardName of Object.keys(gradeData)) {
+                text(cardName, cardNamePos.x, cardNamePos.y)
+            }
         }
 
         requiredHeight += rowHeight
