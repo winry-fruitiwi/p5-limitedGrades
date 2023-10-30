@@ -325,15 +325,21 @@ function drawCardNames() {
 
         text(grades[i], text_center.x, text_center.y)
 
+        textSize(15)
+
         // get ready to display text for each of the other color buckets
         for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
             let color = Object.keys(cardBuckets)[j]
-            let cardNamePos = new p5.Vector(j * columnWidth + FIRST_COLUMN_WIDTH, pos)
+            let cardNameStartPos = new p5.Vector(j * columnWidth + FIRST_COLUMN_WIDTH, pos)
 
             let gradeBuckets = cardBuckets[color]
             let gradeData = gradeBuckets[grades[i]]
 
-            for (let cardName of Object.keys(gradeData)) {
+            for (let k = 0; k < Object.keys(gradeData).length; k++) {
+                let cardName = Object.keys(gradeData)[k]
+
+                let cardNamePos = new p5.Vector(cardNameStartPos.x,
+                    cardNameStartPos.y + textAscent()*k)
                 text(cardName, cardNamePos.x, cardNamePos.y)
             }
         }
