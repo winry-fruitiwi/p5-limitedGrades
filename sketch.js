@@ -300,6 +300,9 @@ function drawCardNames() {
 
         textSize(15)
 
+        // the longest set of card names
+        let longestBucketLength = 0
+
         // get ready to display text for each of the other color buckets
         for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
             let color = Object.keys(cardBuckets)[j]
@@ -315,13 +318,19 @@ function drawCardNames() {
                     cardNameStartPos.y + textAscent()*k)
                 text(cardName, cardNamePos.x, cardNamePos.y)
             }
+
+            if (longestBucketLength < Object.keys(gradeData).length) {
+                longestBucketLength = Object.keys(gradeData).length
+            }
         }
+
+        let currentRowHeight = longestBucketLength * textAscent() + rowHeight
 
         noStroke()
         fill(137 - 11*i, 82, 77)
 
         rect(0, pos,
-            COLOR_WIDTH, rowHeight
+            COLOR_WIDTH, currentRowHeight
         )
 
         strokeWeight(2)
@@ -329,7 +338,7 @@ function drawCardNames() {
         noFill()
 
         rect(-20, pos,
-             width + 60, rowHeight
+             width + 60, currentRowHeight
         )
 
         // compute the text center and display the text, left-aligned. I used
@@ -345,8 +354,8 @@ function drawCardNames() {
 
         text(grades[i], text_center.x, text_center.y)
 
-        requiredHeight += rowHeight + Object.keys(cardBuckets).length * textAscent()
-        nextRowPos += rowHeight + Object.keys(cardBuckets).length * textAscent()
+        requiredHeight += currentRowHeight
+        nextRowPos += currentRowHeight
     }
 
     return requiredHeight + FIRST_ROW_HEIGHT
