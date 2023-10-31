@@ -328,22 +328,21 @@ function drawCardNames() {
                 let wordPos = new p5.Vector(cardNamePos.x, cardNamePos.y)
 
                 for (let word of wordList) {
+                    print(word)
                     word += " "
-                    if (textWidth(word) >= (columnWidth + cardNamePos.x)) {
+                    if ((textWidth(word) + wordPos.x) >= (columnWidth + cardNamePos.x)) {
                         numLines += 1
 
                         wordPos.y += textAscent() + INLINE_MARGIN
                         wordPos.x = cardNamePos.x
-
-                        print("hi.")
                     }
                     text(word, wordPos.x, wordPos.y)
                     wordPos.x += textWidth(word)
                 }
             }
 
-            if (longestBucketLength < Object.keys(gradeData).length) {
-                longestBucketLength = Object.keys(gradeData).length
+            if (longestBucketLength < numLines) {
+                longestBucketLength = numLines
             }
         }
 
