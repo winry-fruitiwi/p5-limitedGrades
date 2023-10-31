@@ -299,7 +299,7 @@ function drawCardNames() {
     for (let i = 0; i < grades.length; i++) {
         let pos = nextRowPos
 
-        textSize(15)
+        textSize(18)
         textAlign(LEFT, TOP)
 
         // the longest set of card names
@@ -323,6 +323,10 @@ function drawCardNames() {
 
                 noStroke()
                 text(cardName, cardNamePos.x, cardNamePos.y)
+
+                if ((textWidth(cardName) >= columnWidth) && frameCount % 100 === 0) {
+                    print(cardName, "is too long!")
+                }
             }
 
             if (longestBucketLength < Object.keys(gradeData).length) {
