@@ -222,6 +222,7 @@ function drawCardNames() {
     const FIRST_COLUMN_WIDTH = 60
     const COLUMN_MARGIN = 10  // margin on either side, not total margin
     const COLOR_WIDTH = 5
+    const INLINE_MARGIN = 4
 
     // first row/column light gray
     noStroke()
@@ -318,7 +319,7 @@ function drawCardNames() {
                 let cardName = Object.keys(gradeData)[k]
 
                 let cardNamePos = new p5.Vector(cardNameStartPos.x,
-                    cardNameStartPos.y + textAscent()*k)
+                    cardNameStartPos.y + (textAscent() + INLINE_MARGIN)*k)
 
                 noStroke()
                 text(cardName, cardNamePos.x, cardNamePos.y)
@@ -329,7 +330,7 @@ function drawCardNames() {
             }
         }
 
-        let currentRowHeight = longestBucketLength * textAscent() + rowHeight
+        let currentRowHeight = longestBucketLength * (textAscent() + INLINE_MARGIN) + rowHeight
 
         noStroke()
         fill(137 - 11*i, 82, 77)
@@ -348,7 +349,7 @@ function drawCardNames() {
 
         // compute the text center and display the text, left-aligned. I used
         // stroke to bold the text.
-        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/3, pos + rowHeight/2)
+        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/3, pos + currentRowHeight/2)
 
         textAlign(LEFT, CENTER)
         textSize(22)
