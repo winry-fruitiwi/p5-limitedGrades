@@ -314,18 +314,31 @@ function drawCardNames() {
 
             let gradeBuckets = cardBuckets[color]
             let gradeData = gradeBuckets[grades[i]]
+            let numLines = 0
 
             for (let k = 0; k < Object.keys(gradeData).length; k++) {
                 let cardName = Object.keys(gradeData)[k]
 
                 let cardNamePos = new p5.Vector(cardNameStartPos.x,
-                    cardNameStartPos.y + (textAscent() + INLINE_MARGIN)*k)
+                    cardNameStartPos.y + (textAscent() + INLINE_MARGIN)*numLines)
 
+                numLines += 1
                 noStroke()
-                text(cardName, cardNamePos.x, cardNamePos.y)
+                let wordList = cardName.split(" ")
+                let wordPos = new p5.Vector(cardNamePos.x, cardNamePos.y)
 
-                if ((textWidth(cardName) >= columnWidth) && frameCount % 100 === 0) {
-                    print(cardName, "is too long!")
+                for (let word of wordList) {
+                    word += " "
+                    if (textWidth(word) >= (columnWidth + cardNamePos.x)) {
+                        numLines += 1
+
+                        wordPos.y += textAscent() + INLINE_MARGIN
+                        wordPos.x = cardNamePos.x
+
+                        print("hi.")
+                    }
+                    text(word, wordPos.x, wordPos.y)
+                    wordPos.x += textWidth(word)
                 }
             }
 
