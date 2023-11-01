@@ -225,7 +225,7 @@ function drawCardNames() {
     const BETWEEN_CARD_LINE_MARGIN = 10
     const BETWEEN_CARD_NAME_MARGIN = 2
     const COLUMN_PADDING = 5
-
+    const RARITY_STRIP_WIDTH = 15
 
     // first row/column light gray
     noStroke()
@@ -329,12 +329,12 @@ function drawCardNames() {
 
                 noStroke()
                 let wordList = cardName.split(" ")
-                let wordPos = new p5.Vector(cardNamePos.x, cardNamePos.y)
+                let wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH, cardNamePos.y)
                 let cardRectHeight = textAscent() + textDescent()
 
                 for (let word of wordList) {
                     word += " "
-                    if ((textWidth(word) + wordPos.x) >=
+                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         diffY += textAscent() + BETWEEN_CARD_NAME_MARGIN
@@ -350,7 +350,13 @@ function drawCardNames() {
                     columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
                     cardRectHeight)
 
-                wordPos = new p5.Vector(cardNamePos.x, cardNamePos.y)
+                fill(0, 0, 90)
+                rect(cardNamePos.x, cardNamePos.y,
+                    RARITY_STRIP_WIDTH - 5,
+                    cardRectHeight
+                    )
+
+                wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH, cardNamePos.y)
                 fill(0, 0, 80)
 
                 for (let word of wordList) {
@@ -358,7 +364,7 @@ function drawCardNames() {
                     if ((textWidth(word) + wordPos.x) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
-                        wordPos.x = cardNamePos.x
+                        wordPos.x = cardNamePos.x + RARITY_STRIP_WIDTH
                     }
                     text(word, wordPos.x, wordPos.y)
                     wordPos.x += textWidth(word)
