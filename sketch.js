@@ -333,6 +333,7 @@ function drawCardNames() {
                 noStroke()
                 let wordList = cardName.split(" ")
                 let wordPos = new p5.Vector(cardNamePos.x, cardNamePos.y)
+                let cardRectHeight = textAscent() + BETWEEN_CARD_LINE_MARGIN/2
 
                 for (let word of wordList) {
                     print(word)
@@ -343,6 +344,29 @@ function drawCardNames() {
 
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         diffY += textAscent() + BETWEEN_CARD_NAME_MARGIN
+                        cardRectHeight += textAscent() + BETWEEN_CARD_NAME_MARGIN
+                        wordPos.x = cardNamePos.x
+                    }
+                    wordPos.x += textWidth(word)
+                }
+
+                fill(0, 0, 25)
+
+                rect(cardNamePos.x, cardNamePos.y,
+                    columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
+                    cardRectHeight)
+
+                wordPos = new p5.Vector(cardNamePos.x, cardNamePos.y)
+                fill(0, 0, 80)
+
+                for (let word of wordList) {
+                    print(word)
+                    word += " "
+                    if ((textWidth(word) + wordPos.x) >=
+                        (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
+                        numLines += 1
+
+                        wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         wordPos.x = cardNamePos.x
                     }
                     text(word, wordPos.x, wordPos.y)
