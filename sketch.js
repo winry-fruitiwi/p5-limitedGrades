@@ -224,6 +224,7 @@ function drawCardNames() {
     const COLOR_WIDTH = 5
     const BETWEEN_CARD_LINE_MARGIN = 6
     const BETWEEN_CARD_NAME_MARGIN = 2
+    const COLUMN_PADDING = 5
 
 
     // first row/column light gray
@@ -311,13 +312,15 @@ function drawCardNames() {
         for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
             let color = Object.keys(cardBuckets)[j]
             let cardNameStartPos = new p5.Vector(
-                j * columnWidth + COLUMN_MARGIN + FIRST_COLUMN_WIDTH,
-                pos)
+                j * columnWidth + COLUMN_MARGIN + FIRST_COLUMN_WIDTH + COLUMN_PADDING,
+                pos + COLUMN_PADDING)
 
             let gradeBuckets = cardBuckets[color]
             let gradeData = gradeBuckets[grades[i]]
             let numLines = 0
-            let diffY = textDescent()
+            // *2 because I have to account for both top and bottom column
+            // padding
+            let diffY = textDescent() + COLUMN_PADDING*2
 
             for (let k = 0; k < Object.keys(gradeData).length; k++) {
                 let cardName = Object.keys(gradeData)[k]
@@ -334,7 +337,8 @@ function drawCardNames() {
                 for (let word of wordList) {
                     print(word)
                     word += " "
-                    if ((textWidth(word) + wordPos.x) >= (columnWidth + cardNamePos.x)) {
+                    if ((textWidth(word) + wordPos.x) >=
+                        (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         numLines += 1
 
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
