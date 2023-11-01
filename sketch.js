@@ -336,7 +336,6 @@ function drawCardNames() {
                 let cardRectHeight = textAscent() + BETWEEN_CARD_LINE_MARGIN/2
 
                 for (let word of wordList) {
-                    print(word)
                     word += " "
                     if ((textWidth(word) + wordPos.x) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
@@ -360,12 +359,9 @@ function drawCardNames() {
                 fill(0, 0, 80)
 
                 for (let word of wordList) {
-                    print(word)
                     word += " "
                     if ((textWidth(word) + wordPos.x) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
-                        numLines += 1
-
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         wordPos.x = cardNamePos.x
                     }
