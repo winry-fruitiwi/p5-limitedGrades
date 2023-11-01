@@ -222,7 +222,9 @@ function drawCardNames() {
     const FIRST_COLUMN_WIDTH = 60
     const COLUMN_MARGIN = 10  // margin on either side, not total margin
     const COLOR_WIDTH = 5
-    const INLINE_MARGIN = 4
+    const BETWEEN_CARD_LINE_MARGIN = 6
+    const BETWEEN_CARD_NAME_MARGIN = 2
+
 
     // first row/column light gray
     noStroke()
@@ -303,7 +305,7 @@ function drawCardNames() {
         textAlign(LEFT, TOP)
 
         // the longest set of card names
-        let longestBucketLength = 0
+        let longestYDiff = 0
 
         // get ready to display text for each of the other color buckets
         for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
@@ -315,12 +317,14 @@ function drawCardNames() {
             let gradeBuckets = cardBuckets[color]
             let gradeData = gradeBuckets[grades[i]]
             let numLines = 0
+            let diffY = textDescent()
 
             for (let k = 0; k < Object.keys(gradeData).length; k++) {
                 let cardName = Object.keys(gradeData)[k]
 
                 let cardNamePos = new p5.Vector(cardNameStartPos.x,
-                    cardNameStartPos.y + (textAscent() + INLINE_MARGIN)*numLines)
+                    cardNameStartPos.y + (textAscent() + BETWEEN_CARD_LINE_MARGIN)*numLines)
+                diffY += textAscent() + BETWEEN_CARD_LINE_MARGIN
 
                 numLines += 1
                 noStroke()
@@ -333,7 +337,8 @@ function drawCardNames() {
                     if ((textWidth(word) + wordPos.x) >= (columnWidth + cardNamePos.x)) {
                         numLines += 1
 
-                        wordPos.y += textAscent() + INLINE_MARGIN
+                        wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
+                        diffY += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         wordPos.x = cardNamePos.x
                     }
                     text(word, wordPos.x, wordPos.y)
@@ -341,12 +346,12 @@ function drawCardNames() {
                 }
             }
 
-            if (longestBucketLength < numLines) {
-                longestBucketLength = numLines
+            if (longestYDiff < diffY) {
+                longestYDiff = diffY
             }
         }
 
-        let currentRowHeight = longestBucketLength * (textAscent() + INLINE_MARGIN) + rowHeight
+        let currentRowHeight = longestYDiff + rowHeight
 
         noStroke()
         fill(137 - 11*i, 82, 77)
