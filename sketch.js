@@ -378,7 +378,7 @@ function drawCardNames() {
 
                 for (let word of wordList) {
                     word += " "
-                    if ((textWidth(word) + wordPos.x) >=
+                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         wordPos.x = cardNamePos.x + RARITY_STRIP_WIDTH
