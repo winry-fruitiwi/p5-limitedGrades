@@ -225,7 +225,7 @@ function drawCardNames() {
     const BETWEEN_CARD_LINE_MARGIN = 10
     const BETWEEN_CARD_NAME_MARGIN = 2
     const COLUMN_PADDING = 5
-    const RARITY_STRIP_WIDTH = 15
+    const RARITY_STRIP_WIDTH = 10
 
     // first row/column light gray
     noStroke()
@@ -351,10 +351,21 @@ function drawCardNames() {
                     columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
                     cardRectHeight)
 
-                if (gradeData[cardName]["rarity"] === "common")
-                    fill(0, 0, 90)
-                else
-                    fill(0, 0, 0)
+                switch (gradeData[cardName]["rarity"]) {
+                    case ("common"):
+                        fill(0, 0, 83)
+                        break
+                    case ("uncommon"):
+                        fill(214, 14, 51)
+                        break
+                    case ("rare"):
+                        fill(44, 55, 64)
+                        break
+                    case ("mythic"):
+                        fill(11, 79, 74)
+                        break
+                }
+
 
                 rect(cardNamePos.x, cardNamePos.y,
                     RARITY_STRIP_WIDTH - 5,
