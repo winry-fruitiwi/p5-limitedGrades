@@ -329,7 +329,8 @@ function drawCardNames() {
 
                 noStroke()
                 let wordList = cardName.split(" ")
-                let wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH, cardNamePos.y)
+                let wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH,
+                    cardNamePos.y)
                 let cardRectHeight = textAscent() + textDescent()
 
                 for (let word of wordList) {
@@ -350,13 +351,18 @@ function drawCardNames() {
                     columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
                     cardRectHeight)
 
-                fill(0, 0, 90)
+                if (gradeData[cardName]["rarity"] === "common")
+                    fill(0, 0, 90)
+                else
+                    fill(0, 0, 0)
+
                 rect(cardNamePos.x, cardNamePos.y,
                     RARITY_STRIP_WIDTH - 5,
                     cardRectHeight
                     )
 
-                wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH, cardNamePos.y)
+                wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH,
+                    cardNamePos.y)
                 fill(0, 0, 80)
 
                 for (let word of wordList) {
@@ -395,7 +401,8 @@ function drawCardNames() {
 
         // compute the text center and display the text, left-aligned. I used
         // stroke to bold the text.
-        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/3, pos + currentRowHeight/2)
+        let text_center = new p5.Vector(FIRST_COLUMN_WIDTH/3,
+            pos + currentRowHeight/2)
 
         textAlign(LEFT, CENTER)
         textSize(22)
