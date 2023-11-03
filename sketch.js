@@ -357,7 +357,8 @@ function drawCardNames() {
                     (mouseY > cardNamePos.y &&
                         mouseY < cardNamePos.y + cardRectHeight)
                 ) {
-                    print("you're mousing over", cardName)
+                    print("you're mousing over", cardName, "and the picture" +
+                        "for the card is ", gradeData[cardName]["png"])
                 }
 
                 switch (gradeData[cardName]["rarity"]) {
