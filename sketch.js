@@ -351,6 +351,15 @@ function drawCardNames() {
                     columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
                     cardRectHeight)
 
+                if (
+                    (mouseX > cardNamePos.x &&
+                        mouseX < cardNamePos.x + columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN) &&
+                    (mouseY > cardNamePos.y &&
+                        mouseY < cardNamePos.y + cardRectHeight)
+                ) {
+                    print("you're mousing over", cardName)
+                }
+
                 switch (gradeData[cardName]["rarity"]) {
                     case ("common"):
                         fill(0, 0, 83)
