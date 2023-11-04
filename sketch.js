@@ -235,6 +235,8 @@ function drawCardNames() {
     const RARITY_STRIP_WIDTH = 10
     const IMAGE_MARGIN = 10
 
+    let hoverPhoto, hoverPhotoPos
+
     // first row/column light gray
     noStroke()
 
@@ -375,8 +377,9 @@ function drawCardNames() {
                     let img = gradeData[cardName]["png"]
                     img.resize(300, 0)
                     imageMode(CORNER)
-                    image(img, cardNamePos.x,
+                    hoverPhotoPos = new p5.Vector(cardNamePos.x,
                         rectBottom + IMAGE_MARGIN)
+                    hoverPhoto = img
                 }
 
                 switch (gradeData[cardName]["rarity"]) {
@@ -454,6 +457,10 @@ function drawCardNames() {
 
         requiredHeight += currentRowHeight
         nextRowPos += currentRowHeight
+    }
+
+    if (hoverPhoto) {
+        image(hoverPhoto, hoverPhotoPos.x, hoverPhotoPos.y)
     }
 
     return requiredHeight + FIRST_ROW_HEIGHT
