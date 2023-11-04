@@ -156,6 +156,12 @@ function processMasterData() {
     for (let cardName of Object.keys(masterJSON)) {
         let card = masterJSON[cardName]
 
+        card["png"] = loadImage(card["png"])
+
+        while (!(card["png"])) {
+            // essentially waits for the card image to be loaded
+        }
+
         let cardGrade
 
         if (card["stats"]["all"]["all"])
@@ -357,8 +363,12 @@ function drawCardNames() {
                     (mouseY > cardNamePos.y &&
                         mouseY < cardNamePos.y + cardRectHeight)
                 ) {
-                    print("you're mousing over", cardName, "and the picture" +
+                    print("you're mousing over", cardName, "and the picture " +
                         "for the card is ", gradeData[cardName]["png"])
+
+                    let img = gradeData[cardName]["png"]
+                    imageMode(CENTER)
+                    image(img, 100, 100)
                 }
 
                 switch (gradeData[cardName]["rarity"]) {
