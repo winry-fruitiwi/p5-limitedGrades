@@ -209,7 +209,9 @@ function setup() {
 
 
 function draw() {
-    resizeCanvas(windowWidth - 40, requiredHeight)
+    if ((height !== requiredHeight) || (width !== windowWidth - 40)) {
+        resizeCanvas(windowWidth - 40, requiredHeight, true)
+    }
     background(0, 0, 14)
 
     requiredHeight = drawCardNames()
@@ -228,10 +230,10 @@ function drawCardNames() {
     const FIRST_ROW_HEIGHT = 60
     const FIRST_COLUMN_WIDTH = 60
     const COLUMN_MARGIN = 10  // margin on either side, not total margin
-    const COLOR_WIDTH = 5
+    const GRADE_STRIP_WIDTH = 5
     const BETWEEN_CARD_LINE_MARGIN = 10
     const BETWEEN_CARD_NAME_MARGIN = 2
-    const COLUMN_PADDING = 5
+    const COLUMN_PADDING = 2
     const RARITY_STRIP_WIDTH = 10
     const IMAGE_MARGIN = 10
 
@@ -287,13 +289,10 @@ function drawCardNames() {
         let pos = i * columnWidth + FIRST_COLUMN_WIDTH
         noFill()
         strokeWeight(2)
-        stroke(0, 0, 40 + 6*i)
-        rect(pos + COLUMN_MARGIN, 0,
-            columnWidth - COLUMN_MARGIN, height
-        )
 
         // find the center of the text and then display it completely centered
-        let text_center = new p5.Vector(pos + columnWidth/2 + COLUMN_MARGIN/2, FIRST_ROW_HEIGHT/2)
+        let text_center = new p5.Vector(pos + columnWidth/2 + COLUMN_MARGIN/2,
+            FIRST_ROW_HEIGHT/2)
         noStroke()
         fill(0, 0, 80)
         textSize(28)
@@ -371,9 +370,6 @@ function drawCardNames() {
                     (mouseY > cardNamePos.y &&
                         mouseY < rectBottom)
                 ) {
-                    print("you're mousing over", cardName, "and the picture " +
-                        "for the card is ", gradeData[cardName]["png"])
-
                     let img = gradeData[cardName]["png"]
                     img.resize(300, 0)
                     imageMode(CORNER)
@@ -430,7 +426,7 @@ function drawCardNames() {
         fill(137 - 11*i, 82, 77)
 
         rect(0, pos,
-            COLOR_WIDTH, currentRowHeight
+            GRADE_STRIP_WIDTH, currentRowHeight
         )
 
         strokeWeight(2)
