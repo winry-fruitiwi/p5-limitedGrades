@@ -233,6 +233,7 @@ function drawCardNames() {
     const BETWEEN_CARD_NAME_MARGIN = 2
     const COLUMN_PADDING = 5
     const RARITY_STRIP_WIDTH = 10
+    const IMAGE_MARGIN = 10
 
     // first row/column light gray
     noStroke()
@@ -358,19 +359,24 @@ function drawCardNames() {
                     columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
                     cardRectHeight)
 
+                let rectRightEdge = cardNamePos.x + columnWidth -
+                    COLUMN_PADDING*2 - COLUMN_MARGIN
+                let rectBottom = cardNamePos.y + cardRectHeight
+
                 if (
                     (mouseX > cardNamePos.x &&
-                        mouseX < cardNamePos.x + columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN) &&
+                        mouseX < rectRightEdge) &&
                     (mouseY > cardNamePos.y &&
-                        mouseY < cardNamePos.y + cardRectHeight)
+                        mouseY < rectBottom)
                 ) {
                     print("you're mousing over", cardName, "and the picture " +
                         "for the card is ", gradeData[cardName]["png"])
 
                     let img = gradeData[cardName]["png"]
-                    img.resize(0, 50)
-                    imageMode(CENTER)
-                    image(img, 100, 100)
+                    img.resize(300, 0)
+                    imageMode(CORNER)
+                    image(img, cardNamePos.x,
+                        rectBottom + IMAGE_MARGIN)
                 }
 
                 switch (gradeData[cardName]["rarity"]) {
