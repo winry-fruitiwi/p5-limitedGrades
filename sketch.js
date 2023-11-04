@@ -156,11 +156,12 @@ function processMasterData() {
     for (let cardName of Object.keys(masterJSON)) {
         let card = masterJSON[cardName]
 
-        card["png"] = loadImage(card["png"])
-
-        while (!(card["png"])) {
+        let png = loadImage(card["png"])
+        while (!(png)) {
             // essentially waits for the card image to be loaded
         }
+
+        card["png"] = png
 
         let cardGrade
 
@@ -367,6 +368,7 @@ function drawCardNames() {
                         "for the card is ", gradeData[cardName]["png"])
 
                     let img = gradeData[cardName]["png"]
+                    img.resize(0, 50)
                     imageMode(CENTER)
                     image(img, 100, 100)
                 }
