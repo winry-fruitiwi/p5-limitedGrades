@@ -24,7 +24,7 @@ let BACKGROUND_COLOR
 let requiredHeight /* variable used for resizing the canvas every draw frame */
 let masterJSON
 let cardBuckets
-let cardImages
+let cardImages = {}
 
 
 function preload() {
@@ -32,13 +32,17 @@ function preload() {
     fixedWidthFont = loadFont('data/consola.ttf')
     variableWidthFont = loadFont('data/meiryo.ttf')
 
-    masterJSON = loadJSON('master.json')
+    masterJSON = loadJSON('master.json', gotJSON)
+}
 
-    for (let cardName of Object.keys(masterJSON)) {
+function gotJSON(data) {
+    console.log(Object.keys(data).length)
+
+    for (let cardName of Object.keys(data)) {
+        console.log(cardName)
         cardImages[cardName] = loadImage(`cardImages/${cardName}.png`)
     }
 }
-
 
 // iterates through each card and process each card into buckets
 function processMasterData() {
