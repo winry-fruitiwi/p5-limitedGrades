@@ -24,6 +24,7 @@ let BACKGROUND_COLOR
 let requiredHeight /* variable used for resizing the canvas every draw frame */
 let masterJSON
 let cardBuckets
+let cardImages
 
 
 function preload() {
@@ -32,6 +33,10 @@ function preload() {
     variableWidthFont = loadFont('data/meiryo.ttf')
 
     masterJSON = loadJSON('master.json')
+
+    for (let cardName of Object.keys(masterJSON)) {
+        cardImages[cardName] = loadImage(`cardImages/${cardName}.png`)
+    }
 }
 
 
@@ -284,6 +289,8 @@ function drawCardNames() {
         'F '
     ]
 
+    textFont(fixedWidthFont)
+
     // draw the column rectangles
     for (let i = 0; i < 7; i++) {
         let pos = i * columnWidth + FIRST_COLUMN_WIDTH
@@ -316,6 +323,8 @@ function drawCardNames() {
 
         // the longest set of card names
         let longestYDiff = 0
+
+        textFont(variableWidthFont)
 
         // get ready to display text for each of the other color buckets
         for (let j = 0; j < Object.keys(cardBuckets).length; j++) {
@@ -370,7 +379,7 @@ function drawCardNames() {
                     (mouseY > cardNamePos.y &&
                         mouseY < rectBottom)
                 ) {
-                    let img = gradeData[cardName]["png"]
+                    let img = cardImages[cardName]
                     img.resize(300, 0)
                     imageMode(CORNER)
                     hoverPhotoPos = new p5.Vector(cardNamePos.x,
@@ -424,6 +433,8 @@ function drawCardNames() {
 
         noStroke()
         fill(137 - 11*i, 82, 77)
+
+        textFont(fixedWidthFont)
 
         rect(0, pos,
             GRADE_STRIP_WIDTH, currentRowHeight
