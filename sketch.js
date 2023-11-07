@@ -165,13 +165,6 @@ function processMasterData() {
     for (let cardName of Object.keys(masterJSON)) {
         let card = masterJSON[cardName]
 
-        let png = loadImage(card["png"])
-        while (!(png)) {
-            // essentially waits for the card image to be loaded
-        }
-
-        card["png"] = png
-
         let cardGrade
 
         if (card["stats"]["all"]["all"])
@@ -389,6 +382,11 @@ function drawCardNames() {
                     hoverPhotoPos = new p5.Vector(cardNamePos.x,
                         rectBottom + IMAGE_MARGIN)
                     hoverPhoto = img
+
+                    if (hoverPhotoPos.x + 300 > width) {
+                        hoverPhotoPos = new p5.Vector(cardNamePos.x-300,
+                            rectBottom + IMAGE_MARGIN)
+                    }
                 }
 
                 switch (gradeData[cardName]["rarity"]) {
