@@ -128,7 +128,7 @@ function processMasterData() {
             "D-": {},
             "F ": {},
         },
-        "C": {
+        "GOLD": {
             "S ": {},
             "A+": {},
             "A ": {},
@@ -144,7 +144,7 @@ function processMasterData() {
             "D-": {},
             "F ": {},
         },
-        "GOLD": {
+        "C": {
             "S ": {},
             "A+": {},
             "A ": {},
@@ -172,7 +172,7 @@ function processMasterData() {
         else
             continue
 
-        if (card["color"] === "") {
+        if (card["color"].length === 0) {
             buckets["C"][cardGrade][cardName] = card
         }
 
