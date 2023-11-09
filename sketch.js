@@ -44,9 +44,13 @@ function gotJSON(data) {
 
     // Sort the array based on the specified key's value within the "all" dictionary
     entries.sort((a, b) => {
-        let valueA = a[1]["stats"]["all"]["all"][keyToSortBy];
-        let valueB = b[1]["stats"]["all"]["all"][keyToSortBy];
-        return valueA - valueB;
+        if ((a[1]["stats"]["all"]["all"]) &&
+            (b[1]["stats"]["all"]["all"])
+        ) {
+            let valueA = a[1]["stats"]["all"]["all"][keyToSortBy];
+            let valueB = b[1]["stats"]["all"]["all"][keyToSortBy];
+            return valueA - valueB;
+        }
     });
 
     // Create a new object (dictionary) from the sorted array
