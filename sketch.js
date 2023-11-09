@@ -36,7 +36,21 @@ function preload() {
 }
 
 function gotJSON(data) {
-    console.log(Object.keys(data).length)
+    // Define the key you want to sort by
+    let keyToSortBy = "GIH WR";
+
+    // Convert the dictionary into an array of key-value pairs
+    let entries = Object.entries(data);
+
+    // Sort the array based on the specified key's value within the "all" dictionary
+    entries.sort((a, b) => {
+        let valueA = a[1]["stats"]["all"]["all"][keyToSortBy];
+        let valueB = b[1]["stats"]["all"]["all"][keyToSortBy];
+        return valueA - valueB;
+    });
+
+    // Create a new object (dictionary) from the sorted array
+    data = Object.fromEntries(entries)
 
     for (let cardName of Object.keys(data)) {
         console.log(cardName)
