@@ -384,8 +384,13 @@ function drawCardNames() {
                     hoverPhoto = img
 
                     if (hoverPhotoPos.x + 300 > width) {
-                        hoverPhotoPos = new p5.Vector(cardNamePos.x-300,
-                            rectBottom + IMAGE_MARGIN)
+                        hoverPhotoPos.x = hoverPhotoPos.x - (cardNamePos.x+300-width)
+                    }
+
+                    if (hoverPhotoPos.y + img.height > windowHeight + scrollY) {
+                        let diff = hoverPhotoPos.y + img.height - (windowHeight + scrollY)
+
+                        hoverPhotoPos.y = hoverPhotoPos.y - diff
                     }
                 }
 
