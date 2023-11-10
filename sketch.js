@@ -255,6 +255,7 @@ function drawCardNames() {
     const BETWEEN_CARD_NAME_MARGIN = 2
     const COLUMN_PADDING = 2
     const RARITY_STRIP_WIDTH = 5
+    const RARITY_STRIP_MARGIN = 5
     const IMAGE_MARGIN = 10
 
     let hoverPhoto, hoverPhotoPos
@@ -362,18 +363,18 @@ function drawCardNames() {
 
                 noStroke()
                 let wordList = cardName.split(" ")
-                let wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH,
+                let wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN,
                     cardNamePos.y)
                 let cardRectHeight = textAscent() + textDescent()
 
                 for (let word of wordList) {
-                    word += " "
-                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH) >=
+                    word = " " + word
+                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         diffY += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         cardRectHeight += textAscent() + BETWEEN_CARD_NAME_MARGIN
-                        wordPos.x = cardNamePos.x
+                        wordPos.x = cardNamePos.x + RARITY_STRIP_MARGIN
                     }
                     wordPos.x += textWidth(word)
                 }
@@ -439,15 +440,15 @@ function drawCardNames() {
                     fill(32, 97, 85)
                 }
 
-                wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH,
+                wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN,
                     cardNamePos.y)
 
                 for (let word of wordList) {
                     word = " " + word
-                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH) >=
+                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
-                        wordPos.x = cardNamePos.x + RARITY_STRIP_WIDTH
+                        wordPos.x = cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN
                     }
                     text(word, wordPos.x, wordPos.y)
                     wordPos.x += textWidth(word)
