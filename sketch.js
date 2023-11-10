@@ -254,7 +254,7 @@ function drawCardNames() {
     const BETWEEN_CARD_LINE_MARGIN = 10
     const BETWEEN_CARD_NAME_MARGIN = 2
     const COLUMN_PADDING = 2
-    const RARITY_STRIP_WIDTH = 10
+    const RARITY_STRIP_WIDTH = 5
     const IMAGE_MARGIN = 10
 
     let hoverPhoto, hoverPhotoPos
@@ -388,6 +388,31 @@ function drawCardNames() {
                     COLUMN_PADDING*2 - COLUMN_MARGIN
                 let rectBottom = cardNamePos.y + cardRectHeight
 
+                switch (gradeData[cardName]["rarity"]) {
+                    case ("common"):
+                        fill(0, 0, 83)
+                        break
+                    case ("uncommon"):
+                        fill(214, 14, 51)
+                        break
+                    case ("rare"):
+                        fill(44, 55, 64)
+                        break
+                    case ("mythic"):
+                        fill(11, 79, 74)
+                        break
+                }
+
+
+                rect(cardNamePos.x, cardNamePos.y,
+                    RARITY_STRIP_WIDTH,
+                    cardRectHeight
+                )
+
+                fill(0, 0, 80)
+
+                // if the mouse is hovering over the text box, save the
+                // text box's associated image
                 if (
                     (mouseX > cardNamePos.x &&
                         mouseX < rectRightEdge) &&
@@ -410,35 +435,15 @@ function drawCardNames() {
 
                         hoverPhotoPos.y = hoverPhotoPos.y - diff
                     }
+
+                    fill(32, 97, 85)
                 }
-
-                switch (gradeData[cardName]["rarity"]) {
-                    case ("common"):
-                        fill(0, 0, 83)
-                        break
-                    case ("uncommon"):
-                        fill(214, 14, 51)
-                        break
-                    case ("rare"):
-                        fill(44, 55, 64)
-                        break
-                    case ("mythic"):
-                        fill(11, 79, 74)
-                        break
-                }
-
-
-                rect(cardNamePos.x, cardNamePos.y,
-                    RARITY_STRIP_WIDTH - 5,
-                    cardRectHeight
-                    )
 
                 wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH,
                     cardNamePos.y)
-                fill(0, 0, 80)
 
                 for (let word of wordList) {
-                    word += " "
+                    word = " " + word
                     if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
