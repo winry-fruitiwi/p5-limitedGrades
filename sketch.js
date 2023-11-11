@@ -367,8 +367,9 @@ function drawCardNames() {
                     cardNamePos.y)
                 let cardRectHeight = textAscent() + textDescent()
 
+                // iterate once to find all the positions needed
                 for (let word of wordList) {
-                    word = " " + word
+                    word += " "
                     if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
@@ -412,6 +413,8 @@ function drawCardNames() {
 
                 fill(0, 0, 80)
 
+                let currentlyHoveredOver = false
+
                 // if the mouse is hovering over the text box, save the
                 // text box's associated image
                 if (
@@ -438,19 +441,35 @@ function drawCardNames() {
                     }
 
                     fill(32, 97, 85)
+                    currentlyHoveredOver = true
                 }
 
                 wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN,
                     cardNamePos.y)
 
+                // iterate again to actually display the words
                 for (let word of wordList) {
-                    word = " " + word
+                    word += " "
                     if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         wordPos.x = cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN
                     }
                     text(word, wordPos.x, wordPos.y)
+
+                    // if the text was hovered over, underline it with a
+                    // line under the entire word
+                    if (currentlyHoveredOver) {
+                        stroke(32, 97, 85) // hovered text color
+                        strokeWeight(2)
+                        line(
+                            wordPos.x, wordPos.y + textAscent(),
+                            wordPos.x + textWidth(word), wordPos.y + textAscent()
+                        )
+
+                        noStroke()
+                    }
+
                     wordPos.x += textWidth(word)
                 }
             }
