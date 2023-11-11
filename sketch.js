@@ -450,12 +450,25 @@ function drawCardNames() {
                 // iterate again to actually display the words
                 for (let word of wordList) {
                     word += " "
-                    if ((textWidth(word) + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
+
+                    // find the next word and calculate if I should add a
+                    // space to the current word
+                    let nextWord = wordList[wordList.indexOf(word) + 1]
+                    let wordWidth = textWidth(word)
+                    let nextWordWidth = textWidth(nextWord)
+
+                    if ((wordWidth + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
                         (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         wordPos.x = cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN
                     }
-                    text(word, wordPos.x, wordPos.y)
+
+                    // calculate if the next word will wrap
+                    else if ((wordWidth + nextWordWidth + wordPos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN) >=
+                        (columnWidth + cardNamePos.x - COLUMN_PADDING)) {
+                        // if so, then remove the space from the word width
+                        wordWidth -= textWidth(" ")
+                    }
 
                     // if the text was hovered over, underline it with a
                     // line under the entire word
@@ -464,11 +477,13 @@ function drawCardNames() {
                         strokeWeight(2)
                         line(
                             wordPos.x, wordPos.y + textAscent(),
-                            wordPos.x + textWidth(word), wordPos.y + textAscent()
+                            wordPos.x + wordWidth, wordPos.y + textAscent()
                         )
 
                         noStroke()
                     }
+
+                    text(word, wordPos.x, wordPos.y)
 
                     wordPos.x += textWidth(word)
                 }
