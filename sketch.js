@@ -375,7 +375,7 @@ function drawCardNames() {
                         wordPos.y += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         diffY += textAscent() + BETWEEN_CARD_NAME_MARGIN
                         cardRectHeight += textAscent() + BETWEEN_CARD_NAME_MARGIN
-                        wordPos.x = cardNamePos.x + RARITY_STRIP_MARGIN
+                        wordPos.x = cardNamePos.x + RARITY_STRIP_MARGIN + RARITY_STRIP_WIDTH
                     }
                     wordPos.x += textWidth(word)
                 }
@@ -453,7 +453,7 @@ function drawCardNames() {
 
                     // find the next word and calculate if I should add a
                     // space to the current word
-                    let nextWord = wordList[wordList.indexOf(word) + 1]
+                    let nextWord = wordList[wordList.indexOf(word) + 1] + " "
                     let wordWidth = textWidth(word)
                     let nextWordWidth = textWidth(nextWord)
 
