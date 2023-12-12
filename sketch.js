@@ -25,6 +25,7 @@ let requiredHeight /* variable used for resizing the canvas every draw frame */
 let masterJSON
 let cardBuckets
 let cardImages = {}
+let mouseJustClicked = false
 
 
 function preload() {
@@ -243,6 +244,8 @@ function draw() {
 
     if (frameCount > 3000)
         noLoop()
+
+    mouseJustClicked = false
 }
 
 
@@ -444,7 +447,7 @@ function drawCardNames() {
                     currentlyHoveredOver = true
 
                     // if the mouse also just clicked on a card, print its name
-                    if (mouseIsPressed) {
+                    if (mouseJustClicked) {
                         print(cardName + " was clicked on")
                     }
                 }
@@ -556,6 +559,11 @@ function keyPressed() {
         debugCorner.visible = !debugCorner.visible
         console.log(`debugCorner visibility set to ${debugCorner.visible}`)
     }
+}
+
+
+function mouseClicked() {
+    mouseJustClicked = true
 }
 
 
