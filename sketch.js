@@ -26,6 +26,8 @@ let masterJSON
 let cardBuckets
 let cardImages = {}
 let mouseJustClicked = false
+let mouseJustClickedOnCard = false
+let grayScreen = false
 
 
 function preload() {
@@ -242,10 +244,19 @@ function draw() {
     debugCorner.setText(`fps: ${frameRate().toFixed(0)}`, 1)
     // debugCorner.showBottom()
 
+    if (grayScreen) {
+        fill(0, 0, 0, 69)
+        rect(0, 0, width, height)
+        if (mouseJustClicked) {
+            grayScreen = false
+        }
+    }
+
     if (frameCount > 3000)
         noLoop()
 
     mouseJustClicked = false
+    mouseJustClickedOnCard = false
 }
 
 
@@ -449,6 +460,9 @@ function drawCardNames() {
                     // if the mouse also just clicked on a card, print its name
                     if (mouseJustClicked) {
                         print(cardName + " was clicked on")
+                        grayScreen = true
+                        mouseJustClickedOnCard = true
+                        mouseJustClicked = false
                     }
                 }
 
