@@ -442,6 +442,11 @@ function drawCardNames() {
 
                     fill(32, 97, 85)
                     currentlyHoveredOver = true
+
+                    // if the mouse also just clicked on a card, print its name
+                    if (mouseIsPressed) {
+                        print(cardName + " was clicked on")
+                    }
                 }
 
                 wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN,
