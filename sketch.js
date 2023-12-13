@@ -245,8 +245,18 @@ function draw() {
     // debugCorner.showBottom()
 
     if (grayScreen) {
+        noStroke()
         fill(0, 0, 0, 69)
         rect(0, 0, width, height)
+
+        // rect margin should be based on height/width
+        let sideMargin = width/10
+        let verticalMargin = windowHeight/10
+
+        fill(0, 0, 9)
+        rect(sideMargin, scrollY + verticalMargin,
+            width-(sideMargin*2), windowHeight-(verticalMargin*2))
+
         if (mouseJustClicked) {
             grayScreen = false
         }
