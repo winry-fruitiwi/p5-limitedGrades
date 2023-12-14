@@ -245,17 +245,13 @@ function draw() {
     // debugCorner.showBottom()
 
     if (grayScreen) {
+        // make the screen look darker
         noStroke()
         fill(0, 0, 0, 69)
         rect(0, 0, width, height)
 
-        // rect margin should be based on height/width
-        let sideMargin = width/10
-        let verticalMargin = windowHeight/10
-
-        fill(0, 0, 9)
-        rect(sideMargin, scrollY + verticalMargin,
-            width-(sideMargin*2), windowHeight-(verticalMargin*2))
+        // display the detailed single-card stat UI
+        displaySingleCardStatUI()
 
         if (mouseJustClicked) {
             grayScreen = false
@@ -568,6 +564,17 @@ function drawCardNames() {
     }
 
     return requiredHeight + FIRST_ROW_HEIGHT
+}
+
+
+function displaySingleCardStatUI() {
+    // rect margin should be based on height/width
+    let sideMargin = width/10
+    let verticalMargin = windowHeight/10
+
+    fill(0, 0, 9)
+    rect(sideMargin, scrollY + verticalMargin,
+        width-(sideMargin*2), windowHeight-(verticalMargin*2))
 }
 
 
