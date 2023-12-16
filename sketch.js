@@ -559,7 +559,9 @@ function drawCardNames() {
         nextRowPos += currentRowHeight
     }
 
-    if (hoverPhoto) {
+    // makes sure that photos don't display when the screen is supposed to be
+    // grayed out
+    if (hoverPhoto && !grayScreen) {
         image(hoverPhoto, hoverPhotoPos.x, hoverPhotoPos.y)
     }
 
