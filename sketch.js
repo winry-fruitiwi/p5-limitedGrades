@@ -28,6 +28,8 @@ let cardImages = {}
 let mouseJustClicked = false
 let mouseJustClickedOnCard = false
 let grayScreen = false
+let cardClickedData
+let c, w, u, b, r, g, gold
 
 
 function preload() {
@@ -228,6 +230,14 @@ function setup() {
     BACKGROUND_COLOR = color(0, 0, 9)
 
     cardBuckets = processMasterData()
+
+    c = loadImage("manaSymbols/c.png")
+    w = loadImage("manaSymbols/w.png")
+    u = loadImage("manaSymbols/u.png")
+    b = loadImage("manaSymbols/b.png")
+    r = loadImage("manaSymbols/r.png")
+    g = loadImage("manaSymbols/g.png")
+    gold = loadImage("manaSymbols/gold.png")
 }
 
 
@@ -298,13 +308,13 @@ function drawCardNames() {
 
     // list of svgs/characters to display in each column
     let manaDisplaySymbols = [
-        'W',
-        'U',
-        'B',
-        'R',
-        'G',
-        'GOLD',
-        'C'
+        w,
+        u,
+        b,
+        r,
+        g,
+        gold,
+        c
     ]
 
     // list of all possible grades to display in each row
@@ -340,7 +350,7 @@ function drawCardNames() {
         fill(0, 0, 80)
         textSize(28)
         textAlign(CENTER, CENTER)
-        text(manaDisplaySymbols[i], text_center.x, text_center.y)
+        image(manaDisplaySymbols[i], text_center.x, text_center.y)
     }
 
     // required height of canvas
@@ -466,7 +476,12 @@ function drawCardNames() {
                     // if the mouse also just clicked on a card, print its name
                     if (mouseJustClicked) {
                         print(cardName + " was clicked on")
-                        grayScreen = true
+                        if (!grayScreen) {
+                            cardClickedData = gradeData[cardName]
+                            cardClickedData["name"] = cardName
+                            print("cardName:", cardName)
+                        }
+                        grayScreen = !grayScreen
                         mouseJustClickedOnCard = true
                         mouseJustClicked = false
                     }
@@ -574,9 +589,17 @@ function displaySingleCardStatUI() {
     let sideMargin = width/10
     let verticalMargin = windowHeight/10
 
+    push()
+    translate(sideMargin, scrollY + verticalMargin)
+
     fill(0, 0, 9)
-    rect(sideMargin, scrollY + verticalMargin,
-        width-(sideMargin*2), windowHeight-(verticalMargin*2))
+    rect(0, 0, width-(sideMargin*2), windowHeight-(verticalMargin*2), 15)
+
+    print(Object.keys(cardClickedData)[0])
+    fill(0, 0, 80)
+    text(Object.keys(cardClickedData)[0], 0, 0)
+
+    pop()
 }
 
 
