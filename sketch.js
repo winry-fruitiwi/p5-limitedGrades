@@ -478,8 +478,9 @@ function drawCardNames() {
                         print(cardName + " was clicked on")
                         if (!grayScreen) {
                             cardClickedData = gradeData[cardName]
-                            cardClickedData["name"] = cardName
+                            cardClickedData["name"] = cardName.slice()
                             print("cardName:", cardName)
+                            print("cardClickedData:", cardClickedData)
                         }
                         grayScreen = !grayScreen
                         mouseJustClickedOnCard = true
@@ -595,9 +596,9 @@ function displaySingleCardStatUI() {
     fill(0, 0, 9)
     rect(0, 0, width-(sideMargin*2), windowHeight-(verticalMargin*2), 15)
 
-    print(Object.keys(cardClickedData)[0])
+    print(cardClickedData["name"])
     fill(0, 0, 80)
-    text(Object.keys(cardClickedData)[0], 0, 0)
+    text(cardClickedData["name"], 0, 0)
 
     pop()
 }
