@@ -349,7 +349,7 @@ function drawCardNames() {
         noStroke()
         fill(0, 0, 80)
         textSize(28)
-        textAlign(CENTER, CENTER)
+        imageMode(CENTER)
         image(manaDisplaySymbols[i], text_center.x, text_center.y)
     }
 
