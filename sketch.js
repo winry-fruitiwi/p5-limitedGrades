@@ -587,18 +587,29 @@ function drawCardNames() {
 
 function displaySingleCardStatUI() {
     // rect margin should be based on height/width
-    let sideMargin = width/10
-    let verticalMargin = windowHeight/10
+    const SIDE_MARGIN = width/10
+    const VERTICAL_MARGIN = windowHeight/10
+    const LEFT_HEADER_MARGIN = 40
+    const TOP_HEADER_MARGIN = 40
 
+    // translate so that I don't have to add the side margin and
+    // scrollY+vertical margin every time I want to draw something, as I'll be
+    // drawing a lot of widgets on this.
     push()
-    translate(sideMargin, scrollY + verticalMargin)
+    translate(SIDE_MARGIN, scrollY + VERTICAL_MARGIN)
 
+    // background for detailed stat screen
     fill(0, 0, 9)
-    rect(0, 0, width-(sideMargin*2), windowHeight-(verticalMargin*2), 15)
+    rect(0, 0, width-(SIDE_MARGIN*2), windowHeight-(VERTICAL_MARGIN*2), 15)
 
     print(cardClickedData["name"])
     fill(0, 0, 80)
-    text(cardClickedData["name"], 0, 0)
+
+    // window header (card name)
+    textFont(variableWidthFont)
+    textSize(30)
+    textAlign(LEFT, TOP)
+    text(cardClickedData["name"], LEFT_HEADER_MARGIN, TOP_HEADER_MARGIN)
 
     pop()
 }
