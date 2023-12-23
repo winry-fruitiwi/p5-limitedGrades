@@ -589,8 +589,11 @@ function displaySingleCardStatUI() {
     // rect margin should be based on height/width
     const SIDE_MARGIN = width/10
     const VERTICAL_MARGIN = windowHeight/10
-    const LEFT_HEADER_MARGIN = 40
-    const TOP_HEADER_MARGIN = 40
+    const LEFT_HEADER_MARGIN = 30
+    const VERTICAL_HEADER_MARGIN = 30
+    // window width and height
+    const WIDTH = width - (SIDE_MARGIN*2)
+    const HEIGHT = windowHeight - (VERTICAL_MARGIN*2)
 
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
@@ -600,16 +603,29 @@ function displaySingleCardStatUI() {
 
     // background for detailed stat screen
     fill(0, 0, 9)
-    rect(0, 0, width-(SIDE_MARGIN*2), windowHeight-(VERTICAL_MARGIN*2), 15)
+    rect(0, 0, WIDTH, HEIGHT, 15)
 
     print(cardClickedData["name"])
-    fill(0, 0, 80)
 
     // window header (card name)
     textFont(variableWidthFont)
     textSize(30)
     textAlign(LEFT, TOP)
-    text(cardClickedData["name"], LEFT_HEADER_MARGIN, TOP_HEADER_MARGIN)
+    fill(0, 0, 80)
+    noStroke()
+    text(cardClickedData["name"], LEFT_HEADER_MARGIN, VERTICAL_HEADER_MARGIN)
+
+    // line separating window header and the rest of the card widgets. Has to
+    // account for text height.
+    stroke(0, 0, 0)
+    strokeWeight(1)
+    // *2 because I'm accounting for both top and bottom margin of the text
+    // header
+    line(0, VERTICAL_HEADER_MARGIN*2 + textAscent(),
+        WIDTH, VERTICAL_HEADER_MARGIN*2 + textAscent()
+    )
+
+    translate(LEFT_HEADER_MARGIN, VERTICAL_HEADER_MARGIN*2 + textAscent())
 
     pop()
 }
