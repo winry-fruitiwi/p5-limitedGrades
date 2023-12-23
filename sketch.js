@@ -594,6 +594,9 @@ function displaySingleCardStatUI() {
     // window width and height
     const WIDTH = width - (SIDE_MARGIN*2)
     const HEIGHT = windowHeight - (VERTICAL_MARGIN*2)
+    // top margin of stat/card display
+    const DECK_ANALYSIS_TOP_MARGIN = 40
+    const CARD_TOP_MARGIN = 25
 
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
@@ -625,7 +628,12 @@ function displaySingleCardStatUI() {
         WIDTH, VERTICAL_HEADER_MARGIN*2 + textAscent()
     )
 
-    translate(LEFT_HEADER_MARGIN, VERTICAL_HEADER_MARGIN*2 + textAscent())
+    translate(LEFT_HEADER_MARGIN,
+        VERTICAL_HEADER_MARGIN*2 + textAscent() + DECK_ANALYSIS_TOP_MARGIN
+    )
+
+    noStroke()
+    text("Deck Analysis", 0, 0)
 
     pop()
 }
