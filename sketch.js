@@ -633,7 +633,10 @@ function displaySingleCardStatUI() {
     )
 
     noStroke()
+    textSize(22)
     text("Deck Analysis", 0, 0)
+
+    image(cardImages[cardClickedData["name"]], 0, textAscent() + CARD_TOP_MARGIN)
 
     pop()
 }
