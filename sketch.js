@@ -25,6 +25,7 @@ let requiredHeight /* variable used for resizing the canvas every draw frame */
 let masterJSON
 let cardBuckets
 let cardImages = {}
+let detailedCardWindowImages = {}
 let mouseJustClicked = false
 let mouseJustClickedOnCard = false
 let grayScreen = false
@@ -62,8 +63,8 @@ function gotJSON(data) {
     data = Object.fromEntries(entries)
 
     for (let cardName of Object.keys(data)) {
-        console.log(cardName)
         cardImages[cardName] = loadImage(`cardImages/${cardName}.png`)
+        detailedCardWindowImages[cardName] = loadImage(`cardImages/${cardName}.png`)
     }
 }
 
@@ -308,31 +309,12 @@ function drawCardNames() {
 
     // list of svgs/characters to display in each column
     let manaDisplaySymbols = [
-        w,
-        u,
-        b,
-        r,
-        g,
-        gold,
-        c
+        w, u, b, r, g, gold, c
     ]
 
     // list of all possible grades to display in each row
     let grades = [
-        'S ',
-        'A+',
-        'A ',
-        'A-',
-        'B+',
-        'B ',
-        'B-',
-        'C+',
-        'C ',
-        'C-',
-        'D+',
-        'D ',
-        'D-',
-        'F '
+        'S ', 'A+', 'A ', 'A-', 'B+', 'B ', 'B-', 'C+', 'C ', 'C-', 'D+', 'D ', 'D-', 'F '
     ]
 
     textFont(fixedWidthFont)
@@ -636,7 +618,10 @@ function displaySingleCardStatUI() {
     textSize(22)
     text("Deck Analysis", 0, 0)
 
-    image(cardImages[cardClickedData["name"]], 0, textAscent() + CARD_TOP_MARGIN)
+    imageMode(CORNER)
+    let img = detailedCardWindowImages[cardClickedData["name"]]
+    img.resize(0, HEIGHT*5/8 /* proportion of card image to window height */)
+    image(img, 0, textAscent() + CARD_TOP_MARGIN)
 
     pop()
 }
