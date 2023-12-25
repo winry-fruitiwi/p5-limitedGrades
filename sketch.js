@@ -614,14 +614,16 @@ function displaySingleCardStatUI() {
         VERTICAL_HEADER_MARGIN*2 + textAscent() + DECK_ANALYSIS_TOP_MARGIN
     )
 
-    noStroke()
-    textSize(22)
-    text("Deck Analysis", 0, 0)
-
     imageMode(CORNER)
     let img = detailedCardWindowImages[cardClickedData["name"]]
     img.resize(0, HEIGHT*5/8 /* proportion of card image to window height */)
     image(img, 0, textAscent() + CARD_TOP_MARGIN)
+
+    let imgWidth = img.width
+
+    noStroke()
+    textSize(22)
+    text("Deck Analysis", imgWidth + LEFT_HEADER_MARGIN, 0)
 
     pop()
 }
