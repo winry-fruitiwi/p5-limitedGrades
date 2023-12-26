@@ -580,7 +580,7 @@ function displaySingleCardStatUI() {
     const DECK_ANALYSIS_TOP_MARGIN = 40
     const CARD_TOP_MARGIN = 25
     // width of the entire deck analysis widget
-    const DECK_ANALYSIS_WIDTH = 200
+    const DECK_ANALYSIS_WIDTH = 250
 
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
@@ -616,6 +616,7 @@ function displaySingleCardStatUI() {
         VERTICAL_HEADER_MARGIN*2 + textAscent() + DECK_ANALYSIS_TOP_MARGIN
     )
 
+    // card image
     imageMode(CORNER)
     let img = detailedCardWindowImages[cardClickedData["name"]]
     img.resize(0, HEIGHT*5/8 /* proportion of card image to window height */)
@@ -623,6 +624,7 @@ function displaySingleCardStatUI() {
 
     let imgWidth = img.width
 
+    // "Deck Analysis" widget
     noStroke()
     textSize(22)
     text("Deck Analysis", imgWidth + LEFT_HEADER_MARGIN, 0)
@@ -631,7 +633,15 @@ function displaySingleCardStatUI() {
     noFill()
     strokeWeight(1)
     rect(imgWidth + LEFT_HEADER_MARGIN, textAscent() + CARD_TOP_MARGIN,
-        DECK_ANALYSIS_WIDTH, HEIGHT*5.6/8)
+        imgWidth, HEIGHT*5.6/8)
+
+    translate(imgWidth*2 + LEFT_HEADER_MARGIN*2, 0)
+
+    // "More 17L Stats" widget, but not all 17L stats
+    noStroke()
+    fill(0, 0, 80)
+    text("More 17L Stats", 0, 0)
+
 
     pop()
 }
