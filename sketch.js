@@ -579,6 +579,8 @@ function displaySingleCardStatUI() {
     // top margin of stat/card display
     const DECK_ANALYSIS_TOP_MARGIN = 40
     const CARD_TOP_MARGIN = 25
+    // width of the entire deck analysis widget
+    const DECK_ANALYSIS_WIDTH = 200
 
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
@@ -624,6 +626,12 @@ function displaySingleCardStatUI() {
     noStroke()
     textSize(22)
     text("Deck Analysis", imgWidth + LEFT_HEADER_MARGIN, 0)
+
+    stroke(0, 0, 0)
+    noFill()
+    strokeWeight(1)
+    rect(imgWidth + LEFT_HEADER_MARGIN, textAscent() + CARD_TOP_MARGIN,
+        DECK_ANALYSIS_WIDTH, HEIGHT*5.6/8)
 
     pop()
 }
