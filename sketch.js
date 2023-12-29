@@ -639,18 +639,21 @@ function displaySingleCardStatUI() {
     noFill()
     strokeWeight(1)
     rect(0, textAscent() + CARD_TOP_MARGIN,
-        remainingSpace * 45/100, HEIGHT*5.6/8)
+        remainingSpace * 45/100 /* limitedGrades proportion */, HEIGHT*5.6/8)
 
     // "More 17L Stats" widget, but not all 17L stats
     noStroke()
     fill(0, 0, 80)
-    text("More 17L Stats", imgWidth + LEFT_HEADER_MARGIN, 0)
+    text("More 17L Stats", remainingSpace * 45/100 + LEFT_HEADER_MARGIN, 0)
 
     stroke(0, 0, 0)
     noFill()
     strokeWeight(1)
-    rect(imgWidth + LEFT_HEADER_MARGIN, textAscent() + CARD_TOP_MARGIN,
-        remainingSpace/2, HEIGHT*5.6/8)
+    // calculate remaining space left to use
+    rect(remainingSpace * 45/100 + LEFT_HEADER_MARGIN,
+        textAscent() + CARD_TOP_MARGIN,
+        remainingSpace * 55/100 - LEFT_HEADER_MARGIN*2,
+        HEIGHT*5.6/8)
 
     pop()
 }
