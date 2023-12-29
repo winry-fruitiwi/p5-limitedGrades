@@ -573,18 +573,26 @@ function displaySingleCardStatUI() {
     const VERTICAL_MARGIN = windowHeight/10
     const LEFT_HEADER_MARGIN = 30
     const VERTICAL_HEADER_MARGIN = 30
+
     // window width and height
     const WIDTH = width - (SIDE_MARGIN*2)
     const HEIGHT = windowHeight - (VERTICAL_MARGIN*2)
+
     // top margin of stat/card display
     const DECK_ANALYSIS_TOP_MARGIN = 40
     const CARD_TOP_MARGIN = 25
+
     // width of the entire deck analysis widget
     const DECK_ANALYSIS_WIDTH = 250
     const CARD_WIDTH = 340
+
     // width-to-widgetWidth ratios in 17L
+    // deck analysis widget width
     const DECK_ANALYSIS_PROPORTION = 45/100
+    // all widget height
     const WIDGET_HEIGHT_PROPORTION = 5.6/8
+    // gray rectangle in deck analysis widget width
+    const GRAY_RECT_PROPORTION = 17/45
 
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
@@ -638,13 +646,20 @@ function displaySingleCardStatUI() {
     textSize(22)
     text("Deck Analysis", 0, 0)
 
+    let deckAnalysisWidth = remainingSpace * DECK_ANALYSIS_PROPORTION
+
     stroke(0, 0, 0)
     noFill()
     strokeWeight(1)
     rect(0, textAscent() + CARD_TOP_MARGIN,
-        remainingSpace * DECK_ANALYSIS_PROPORTION, HEIGHT*WIDGET_HEIGHT_PROPORTION)
+        deckAnalysisWidth, HEIGHT*WIDGET_HEIGHT_PROPORTION)
 
-    translate(remainingSpace * DECK_ANALYSIS_PROPORTION + LEFT_HEADER_MARGIN, 0)
+    fill(0, 0, 14)
+    noStroke()
+    rect(0, textAscent() + CARD_TOP_MARGIN,
+        deckAnalysisWidth*GRAY_RECT_PROPORTION, HEIGHT*WIDGET_HEIGHT_PROPORTION)
+
+    translate(deckAnalysisWidth + LEFT_HEADER_MARGIN, 0)
 
     // "More 17L Stats" widget, but not all 17L stats
     noStroke()
