@@ -581,9 +581,6 @@ function displaySingleCardStatUI() {
     // top margin of stat/card display
     const DECK_ANALYSIS_TOP_MARGIN = 40
     const CARD_TOP_MARGIN = 25
-
-    // width of the entire deck analysis widget
-    const DECK_ANALYSIS_WIDTH = 250
     const CARD_WIDTH = 340
 
     // width-to-widgetWidth ratios in 17L
@@ -628,6 +625,8 @@ function displaySingleCardStatUI() {
         VERTICAL_HEADER_MARGIN*2 + textAscent() + DECK_ANALYSIS_TOP_MARGIN
     )
 
+
+
     // card image
     imageMode(CORNER)
     let img = detailedCardWindowImages[cardClickedData["name"]]
@@ -640,6 +639,8 @@ function displaySingleCardStatUI() {
     let remainingSpace = WIDTH - imgWidth - LEFT_HEADER_MARGIN*2
 
     translate(imgWidth + LEFT_HEADER_MARGIN, 0)
+
+
 
     // "Deck Analysis" widget
     noStroke()
@@ -659,11 +660,23 @@ function displaySingleCardStatUI() {
     rect(0, textAscent() + CARD_TOP_MARGIN,
         deckAnalysisWidth*GRAY_RECT_PROPORTION, HEIGHT*WIDGET_HEIGHT_PROPORTION)
 
+    // height of one cell in the deck analysis
+    let cellHeight = HEIGHT * WIDGET_HEIGHT_PROPORTION/5
+
+    textAlign(CENTER, TOP)
+    fill(0, 0, 80)
+    noStroke()
+    text("AVG", deckAnalysisWidth*GRAY_RECT_PROPORTION/2,
+        textAscent() + CARD_TOP_MARGIN + cellHeight/2)
+
+
+
     translate(deckAnalysisWidth + LEFT_HEADER_MARGIN, 0)
 
     // "More 17L Stats" widget, but not all 17L stats
     noStroke()
     fill(0, 0, 80)
+    textAlign(LEFT, TOP)
     text("More 17L Stats", 0, 0)
 
     stroke(0, 0, 0)
