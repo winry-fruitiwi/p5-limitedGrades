@@ -627,7 +627,7 @@ function displaySingleCardStatUI() {
 
 
 
-    // card image
+    /* card image */
     imageMode(CORNER)
     let img = detailedCardWindowImages[cardClickedData["name"]]
     img.resize(CARD_WIDTH, 0)
@@ -642,7 +642,7 @@ function displaySingleCardStatUI() {
 
 
 
-    // "Deck Analysis" widget
+    /* "Deck Analysis" widget */
     noStroke()
     textSize(22)
     text("Deck Analysis", 0, 0)
@@ -663,17 +663,21 @@ function displaySingleCardStatUI() {
     // height of one cell in the deck analysis
     let cellHeight = HEIGHT * WIDGET_HEIGHT_PROPORTION/5
 
+    // draw color pairs and their respective winrates, starting at "AVG/ALL"
     textAlign(CENTER, TOP)
     fill(0, 0, 80)
     noStroke()
     text("AVG", deckAnalysisWidth*GRAY_RECT_PROPORTION/2,
-        textAscent() + CARD_TOP_MARGIN + cellHeight/2)
+        textAscent() + CARD_TOP_MARGIN + cellHeight/2
+    )
+    text(cardClickedData["stats"]["all"]["all"]["GIH WR"] * 100, 0, 0)
+
 
 
 
     translate(deckAnalysisWidth + LEFT_HEADER_MARGIN, 0)
 
-    // "More 17L Stats" widget, but not all 17L stats
+    /* "More 17L Stats" widget, but not all 17L stats */
     noStroke()
     fill(0, 0, 80)
     textAlign(LEFT, TOP)
