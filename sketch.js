@@ -670,8 +670,11 @@ function displaySingleCardStatUI() {
     text("AVG", deckAnalysisWidth*GRAY_RECT_PROPORTION/2,
         textAscent() + CARD_TOP_MARGIN + cellHeight/2
     )
-    text(cardClickedData["stats"]["all"]["all"]["GIH WR"] * 100, 0, 0)
-
+    text(round(cardClickedData["stats"]["all"]["all"]["GIH WR"] * 100),
+        // the middle, or average, of the space between the right edges of the
+        // deck analysis widget and the gray rectangle within
+        (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
+        textAscent() + CARD_TOP_MARGIN + cellHeight/2)
 
 
 
