@@ -663,26 +663,31 @@ function displaySingleCardStatUI() {
     // height of one cell in the deck analysis
     let cellHeight = HEIGHT * WIDGET_HEIGHT_PROPORTION/5
 
-    // draw color pairs and their respective winrates, starting at "AVG/ALL"
-    textAlign(CENTER, TOP)
-    fill(0, 0, 80)
-    noStroke()
-    text("AVG", deckAnalysisWidth*GRAY_RECT_PROPORTION/2,
-        textAscent() + CARD_TOP_MARGIN + cellHeight/2
-    )
+    let pairs = Object.keys(cardClickedData["stats"]["all"])
 
-    // overshoot by one digit so that we can round, then divide by 10 to get
-    // the correct number of place values: 3
-    let cardWinrate = cardClickedData["stats"]["all"]["all"]["GIH WR"] * 1000
-    cardWinrate = round(cardWinrate)
-    cardWinrate /= 10
-    cardWinrate = str(cardWinrate) + "%"
+    for (let i = 0; i < pairs.length; i++) {
+        // draw color pairs and their respective winrates, starting at "AVG/ALL"
+        let pair = pairs[i]
+        textAlign(CENTER, TOP)
+        fill(0, 0, 80)
+        noStroke()
+        text(pair.toUpperCase(), deckAnalysisWidth*GRAY_RECT_PROPORTION/2,
+            textAscent() + CARD_TOP_MARGIN + cellHeight/2 + cellHeight*i
+        )
 
-    text(cardWinrate,
-        // the middle, or average, of the space between the right edges of the
-        // deck analysis widget and the gray rectangle within
-        (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
-        textAscent() + CARD_TOP_MARGIN + cellHeight/2)
+        // overshoot by one digit so that we can round, then divide by 10 to get
+        // the correct number of place values: 3
+        let cardWinrate = cardClickedData["stats"]["all"][pair]["GIH WR"] * 1000
+        cardWinrate = round(cardWinrate)
+        cardWinrate /= 10
+        cardWinrate = str(cardWinrate) + "%"
+
+        text(cardWinrate,
+            // the middle, or average, of the space between the right edges of the
+            // deck analysis widget and the gray rectangle within
+            (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
+            textAscent() + CARD_TOP_MARGIN + cellHeight/2 + cellHeight * i)
+    }
 
 
 
