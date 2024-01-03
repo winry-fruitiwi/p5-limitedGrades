@@ -670,7 +670,15 @@ function displaySingleCardStatUI() {
     text("AVG", deckAnalysisWidth*GRAY_RECT_PROPORTION/2,
         textAscent() + CARD_TOP_MARGIN + cellHeight/2
     )
-    text(round(cardClickedData["stats"]["all"]["all"]["GIH WR"] * 100),
+
+    // overshoot by one digit so that we can round, then divide by 10 to get
+    // the correct number of place values: 3
+    let cardWinrate = cardClickedData["stats"]["all"]["all"]["GIH WR"] * 1000
+    cardWinrate = round(cardWinrate)
+    cardWinrate /= 10
+    cardWinrate = str(cardWinrate) + "%"
+
+    text(cardWinrate,
         // the middle, or average, of the space between the right edges of the
         // deck analysis widget and the gray rectangle within
         (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
