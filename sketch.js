@@ -665,6 +665,11 @@ function displaySingleCardStatUI() {
 
     let pairs = Object.keys(cardClickedData["stats"]["all"])
 
+    // use two calls of splice() to move "all" to the beginning of the list
+    let lastElement = pairs.splice(pairs.length - 1, 1)[0]
+
+    pairs.splice(0, 0, lastElement)
+
     // makes sure that more than five color pairs are not displayed (otherwise,
     // the color pairs overflow and look messy)
     let numPairsDisplayed = 0
