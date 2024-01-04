@@ -590,6 +590,7 @@ function displaySingleCardStatUI() {
     const WIDGET_HEIGHT_PROPORTION = 5.6/8
     // gray rectangle in deck analysis widget width
     const GRAY_RECT_PROPORTION = 17/45
+    const GRADE_BORDER_MARGIN = 25
 
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
@@ -696,6 +697,16 @@ function displaySingleCardStatUI() {
             // deck analysis widget and the gray rectangle within
             (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
             textAscent() + CARD_TOP_MARGIN + cellHeight/2 + cellHeight * i)
+
+        // displays rectangles that should cover the grades
+        noFill()
+        stroke(0, 0, 80)
+        strokeWeight(3)
+        rect((deckAnalysisWidth*GRAY_RECT_PROPORTION) + GRADE_BORDER_MARGIN,
+            textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN,
+            deckAnalysisWidth - (deckAnalysisWidth*GRAY_RECT_PROPORTION) - 2*GRADE_BORDER_MARGIN,
+            cellHeight - GRADE_BORDER_MARGIN
+    )
 
         numPairsDisplayed++
         if (numPairsDisplayed >= 5)
