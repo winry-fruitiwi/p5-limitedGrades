@@ -665,6 +665,10 @@ function displaySingleCardStatUI() {
 
     let pairs = Object.keys(cardClickedData["stats"]["all"])
 
+    // makes sure that more than five color pairs are not displayed (otherwise,
+    // the color pairs overflow and look messy)
+    let numPairsDisplayed = 0
+
     for (let i = 0; i < pairs.length; i++) {
         // draw color pairs and their respective winrates, starting at "AVG/ALL"
         let pair = pairs[i]
@@ -687,6 +691,10 @@ function displaySingleCardStatUI() {
             // deck analysis widget and the gray rectangle within
             (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
             textAscent() + CARD_TOP_MARGIN + cellHeight/2 + cellHeight * i)
+
+        numPairsDisplayed++
+        if (numPairsDisplayed >= 5)
+            break
     }
 
 
