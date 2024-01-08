@@ -663,6 +663,7 @@ function displaySingleCardStatUI() {
 
     // height of one cell in the deck analysis
     let cellHeight = HEIGHT * WIDGET_HEIGHT_PROPORTION/5
+    let cellWidth = deckAnalysisWidth - GRADE_BORDER_MARGIN * 2
 
     let pairs = Object.keys(cardClickedData["stats"]["all"])
 
@@ -717,15 +718,16 @@ function displaySingleCardStatUI() {
 
         // the distance between the end of the card winrate text and the end
         // of the grade border
-        let winrateMargin = (cellHeight/2 - textWidth(cardWinrate))/2
+        let winrateMargin = cellWidth/2 - textWidth(cardWinrate)
         print(winrateMargin)
 
 
         // display the rectangle to the left of the winrate, near the left edge
         // of the box surrounding the winrate up to the winrate itself
+        fill(0, 0, 80)
         rect(grayRectWidth + GRADE_BORDER_MARGIN,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN,
-            (deckAnalysisWidth + grayRectWidth - 2*GRADE_BORDER_MARGIN)/2 - winrateMargin,
+            cellWidth/2 - winrateMargin,
             cellHeight - GRADE_BORDER_MARGIN
         )
 
