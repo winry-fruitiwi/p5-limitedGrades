@@ -674,6 +674,7 @@ function displaySingleCardStatUI() {
     // makes sure that more than five color pairs are not displayed (otherwise,
     // the color pairs overflow and look messy)
     let numPairsDisplayed = 0
+    let grayRectWidth = (deckAnalysisWidth*GRAY_RECT_PROPORTION)
 
     for (let i = 0; i < pairs.length; i++) {
         // draw color pairs and their respective winrates, starting at "AVG/ALL"
@@ -688,25 +689,46 @@ function displaySingleCardStatUI() {
         // overshoot by one digit so that we can round, then divide by 10 to get
         // the correct number of place values: 3
         let cardWinrate = cardClickedData["stats"]["all"][pair]["GIH WR"] * 1000
-        cardWinrate = round(cardWinrate)
-        cardWinrate /= 10
-        cardWinrate = str(cardWinrate) + "%"
+        cardWinrate = float(round(cardWinrate))
+        if (cardWinrate % 10 === 0) {
+            cardWinrate /= 10
+            cardWinrate = str(cardWinrate) + ".0" + "%"
+        } else {
+            cardWinrate /= 10
+            cardWinrate = str(cardWinrate) + "%"
+        }
 
+        textAlign(LEFT, TOP)
         text(cardWinrate,
             // the middle, or average, of the space between the right edges of the
             // deck analysis widget and the gray rectangle within
-            (deckAnalysisWidth + (deckAnalysisWidth*GRAY_RECT_PROPORTION))/2,
+            (deckAnalysisWidth + grayRectWidth)/2,
             textAscent() + CARD_TOP_MARGIN + cellHeight/2 + cellHeight * i)
 
         // displays rectangles that should cover the grades
         noFill()
         stroke(0, 0, 80)
         strokeWeight(3)
-        rect((deckAnalysisWidth*GRAY_RECT_PROPORTION) + GRADE_BORDER_MARGIN,
+        rect(grayRectWidth + GRADE_BORDER_MARGIN,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN,
-            deckAnalysisWidth - (deckAnalysisWidth*GRAY_RECT_PROPORTION) - 2*GRADE_BORDER_MARGIN,
+            deckAnalysisWidth - grayRectWidth - 2*GRADE_BORDER_MARGIN,
             cellHeight - GRADE_BORDER_MARGIN
-    )
+        )
+
+        // the distance between the end of the card winrate text and the end
+        // of the grade border
+        let winrateMargin = (cellHeight/2 - textWidth(cardWinrate))/2
+        print(winrateMargin)
+
+
+        // display the rectangle to the left of the winrate, near the left edge
+        // of the box surrounding the winrate up to the winrate itself
+        rect(grayRectWidth + GRADE_BORDER_MARGIN,
+            textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN,
+            (deckAnalysisWidth + grayRectWidth - 2*GRADE_BORDER_MARGIN)/2 - winrateMargin,
+            cellHeight - GRADE_BORDER_MARGIN
+        )
+
 
         numPairsDisplayed++
         if (numPairsDisplayed >= 5)
