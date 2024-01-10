@@ -700,6 +700,7 @@ function displaySingleCardStatUI() {
         }
 
         textAlign(LEFT, TOP)
+        textFont(variableWidthFont, 22)
         text(cardWinrate,
             // the middle, or average, of the space between the right edges of the
             // deck analysis widget and the gray rectangle within
@@ -731,10 +732,14 @@ function displaySingleCardStatUI() {
             cellHeight - GRADE_BORDER_MARGIN
         )
 
+        // width of a single character, assuming a monospace font
+        textFont(fixedWidthFont, 30)
+        let singleCharWidth = textWidth("A")
+
         fill(0, 0, 0)
-        textAlign(CENTER, CENTER)
+        textAlign(LEFT, CENTER)
         text(cardClickedData["stats"]["all"][pair]["GIH grade"],
-            grayRectWidth + GRADE_BORDER_MARGIN + (cellWidth/2 - winrateMargin)/2,
+            grayRectWidth + GRADE_BORDER_MARGIN + (cellWidth/2 - winrateMargin)/2 - singleCharWidth,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN
             + (cellHeight - GRADE_BORDER_MARGIN)/2
         )
