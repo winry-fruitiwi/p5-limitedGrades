@@ -731,6 +731,14 @@ function displaySingleCardStatUI() {
             cellHeight - GRADE_BORDER_MARGIN
         )
 
+        fill(0, 0, 0)
+        textAlign(CENTER, CENTER)
+        text(cardClickedData["stats"]["all"][pair]["GIH grade"],
+            grayRectWidth + GRADE_BORDER_MARGIN + (cellWidth/2 - winrateMargin)/2,
+            textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN
+            + (cellHeight - GRADE_BORDER_MARGIN)/2
+        )
+
 
         numPairsDisplayed++
         if (numPairsDisplayed >= 5)
