@@ -602,14 +602,13 @@ function displaySingleCardStatUI() {
     fill(0, 0, 9)
     rect(0, 0, WIDTH, HEIGHT, 15)
 
-    print(cardClickedData["name"])
-
     // window header (card name)
     textFont(variableWidthFont)
     textSize(30)
     textAlign(LEFT, TOP)
     fill(0, 0, 80)
-    noStroke()
+    stroke(0, 0, 80)
+    strokeWeight(0.8)
     text(cardClickedData["name"], LEFT_HEADER_MARGIN, VERTICAL_HEADER_MARGIN)
 
     // line separating window header and the rest of the card widgets. Has to
@@ -737,12 +736,16 @@ function displaySingleCardStatUI() {
         let singleCharWidth = textWidth("A")
 
         fill(0, 0, 0)
+        strokeWeight(1)
+        stroke(0, 0, 0)
         textAlign(LEFT, CENTER)
         text(cardClickedData["stats"]["all"][pair]["GIH grade"],
             grayRectWidth + GRADE_BORDER_MARGIN + (cellWidth/2 - winrateMargin)/2 - singleCharWidth,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN
             + (cellHeight - GRADE_BORDER_MARGIN)/2
         )
+
+        textFont(variableWidthFont, 22)
 
 
         numPairsDisplayed++
