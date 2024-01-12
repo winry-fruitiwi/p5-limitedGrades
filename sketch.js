@@ -784,7 +784,7 @@ function displaySingleCardStatUI() {
         remainingSpace,
         HEIGHT*WIDGET_HEIGHT_PROPORTION)
 
-    translate(MORE_STATS_BOX_PADDING, textAscent()+CARD_TOP_MARGIN+MORE_STATS_BOX_PADDING)
+    translate(0, textAscent()+CARD_TOP_MARGIN+MORE_STATS_BOX_PADDING)
 
     // dictionary of messages to display in the "more stats" page
     let messages = {
@@ -801,7 +801,15 @@ function displaySingleCardStatUI() {
 
     for (let i = 0; i < Object.keys(messages).length; i++) {
         let message = Object.keys(messages)[i]
-        text(message, 0, i * (textAscent() + textDescent()))
+        // display the actual message
+        textAlign(LEFT, CENTER)
+        text(message, MORE_STATS_BOX_PADDING, i * (textAscent() + textDescent()))
+
+        // display the value that the message defines
+        textAlign(RIGHT, CENTER)
+        text(messages[message],
+            remainingSpace - MORE_STATS_BOX_PADDING,
+            i * (textAscent() + textDescent()))
     }
 
     pop()
