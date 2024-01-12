@@ -592,6 +592,13 @@ function displaySingleCardStatUI() {
     const GRAY_RECT_PROPORTION = 17/45
     const GRADE_BORDER_MARGIN = 25
 
+    // "More 17L Stats" widget box padding
+    const MORE_STATS_BOX_PADDING = 25
+
+    let grades = [
+        'S ', 'A+', 'A ', 'A-', 'B+', 'B ', 'B-', 'C+', 'C ', 'C-', 'D+', 'D ', 'D-', 'F '
+    ]
+
     // translate so that I don't have to add the side margin and
     // scrollY+vertical margin every time I want to draw something, as I'll be
     // drawing a lot of widgets on this.
@@ -698,6 +705,8 @@ function displaySingleCardStatUI() {
             cardWinrate = str(cardWinrate) + "%"
         }
 
+        let grade = cardClickedData["stats"]["all"][pair]["GIH grade"]
+
         textAlign(LEFT, TOP)
         textFont(variableWidthFont, 22)
         text(cardWinrate,
@@ -708,7 +717,7 @@ function displaySingleCardStatUI() {
 
         // displays rectangles that should cover the grades
         noFill()
-        stroke(0, 0, 80)
+        stroke(137 - 11*grades.indexOf(grade), 82, 77)
         strokeWeight(3)
         rect(grayRectWidth + GRADE_BORDER_MARGIN,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN,
@@ -724,7 +733,7 @@ function displaySingleCardStatUI() {
 
         // display the rectangle to the left of the winrate, near the left edge
         // of the box surrounding the winrate up to the winrate itself
-        fill(0, 0, 80)
+        fill(137 - 11*grades.indexOf(grade), 82, 77)
         rect(grayRectWidth + GRADE_BORDER_MARGIN,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN,
             cellWidth/2 - winrateMargin,
@@ -739,7 +748,7 @@ function displaySingleCardStatUI() {
         strokeWeight(1)
         stroke(0, 0, 0)
         textAlign(LEFT, CENTER)
-        text(cardClickedData["stats"]["all"][pair]["GIH grade"],
+        text(grade,
             grayRectWidth + GRADE_BORDER_MARGIN + (cellWidth/2 - winrateMargin)/2 - singleCharWidth,
             textAscent() + CARD_TOP_MARGIN + cellHeight*i + GRADE_BORDER_MARGIN
             + (cellHeight - GRADE_BORDER_MARGIN)/2
@@ -763,14 +772,37 @@ function displaySingleCardStatUI() {
     textAlign(LEFT, TOP)
     text("More 17L Stats", 0, 0)
 
+    // calculate remaining space left to use
+    remainingSpace -= remainingSpace*DECK_ANALYSIS_PROPORTION + LEFT_HEADER_MARGIN*2
+
     stroke(0, 0, 0)
     noFill()
     strokeWeight(1)
-    // calculate remaining space left to use
+
     rect(0,
         textAscent() + CARD_TOP_MARGIN,
-        remainingSpace-(remainingSpace*DECK_ANALYSIS_PROPORTION)-LEFT_HEADER_MARGIN*2,
+        remainingSpace,
         HEIGHT*WIDGET_HEIGHT_PROPORTION)
+
+    translate(MORE_STATS_BOX_PADDING, textAscent()+CARD_TOP_MARGIN+MORE_STATS_BOX_PADDING)
+
+    // dictionary of messages to display in the "more stats" page
+    let messages = {
+        "hello! I'm tigrex.": 26,
+        "these are messages": 32,
+        "that convey specifics": 22,
+        "that Deck Analysis": 1,
+        "doesn't.": 234
+    }
+
+    textFont(variableWidthFont, 16)
+    noStroke()
+    fill(0, 0, 80)
+
+    for (let i = 0; i < Object.keys(messages).length; i++) {
+        let message = Object.keys(messages)[i]
+        text(message, 0, i * (textAscent() + textDescent()))
+    }
 
     pop()
 }
