@@ -693,17 +693,7 @@ function displaySingleCardStatUI() {
             textAscent() + CARD_TOP_MARGIN + cellHeight/2 + cellHeight*i
         )
 
-        // overshoot by one digit so that we can round, then divide by 10 to get
-        // the correct number of place values: 3
-        let cardWinrate = cardClickedData["stats"]["all"][pair]["GIH WR"] * 1000
-        cardWinrate = float(round(cardWinrate))
-        if (cardWinrate % 10 === 0) {
-            cardWinrate /= 10
-            cardWinrate = str(cardWinrate) + ".0" + "%"
-        } else {
-            cardWinrate /= 10
-            cardWinrate = str(cardWinrate) + "%"
-        }
+        let cardWinrate = parseDecimalWinrate(cardClickedData["stats"]["all"][pair]["GIH WR"])
 
         let grade = cardClickedData["stats"]["all"][pair]["GIH grade"]
 
@@ -784,15 +774,17 @@ function displaySingleCardStatUI() {
         remainingSpace,
         HEIGHT*WIDGET_HEIGHT_PROPORTION)
 
+    let allPlayerStats = cardClickedData["stats"]["all"]["all"]
+
     translate(0, textAscent()+CARD_TOP_MARGIN+MORE_STATS_BOX_PADDING)
 
     // dictionary of messages to display in the "more stats" page
     let messages = {
-        "hello! I'm tigrex.": 26,
-        "these are messages": 32,
-        "that convey specifics": 22,
-        "that Deck Analysis": 1,
-        "doesn't.": 234
+        "Average last seen at/ALSA": round(allPlayerStats["ALSA"]*100)/100,
+        "Games played": allPlayerStats["# GIH"],
+        "Opening hand winrate": parseDecimalWinrate(allPlayerStats["OH WR"]),
+        "Game drawn winrate": parseDecimalWinrate(allPlayerStats["GD WR"]),
+        "Improvement when drawn": str(round(allPlayerStats["IWD"]*1000)/10) + "pp"
     }
 
     textFont(variableWidthFont, 16)
@@ -833,6 +825,27 @@ function keyPressed() {
 
 function mouseClicked() {
     mouseJustClicked = true
+}
+
+
+// turns a decimal winrate with a lot of digits into a clean, readable winrate
+// percentage like 64.2%. Takes in a float, returns a string
+function parseDecimalWinrate(decimalWR) {
+    // this isn't actually a winrate string
+    let winrateString = decimalWR * 1000
+
+    // this makes sure that if the decimal looks like 0.6400023, then the
+    // first decimal place still shows up as 0
+    winrateString = float(round(winrateString))
+    if (winrateString % 10 === 0) {
+        winrateString /= 10
+        winrateString = str(winrateString) + ".0" + "%"
+    } else {
+        winrateString /= 10
+        winrateString = str(winrateString) + "%"
+    }
+
+    return winrateString
 }
 
 
