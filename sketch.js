@@ -246,6 +246,7 @@ function draw() {
     if ((height !== requiredHeight) || (width !== windowWidth - 40)) {
         resizeCanvas(windowWidth - 40, requiredHeight, true)
     }
+
     background(0, 0, 14)
 
     requiredHeight = drawCardNames()
@@ -717,7 +718,7 @@ function displaySingleCardStatUI() {
 
         // the distance between the end of the card winrate text and the end
         // of the grade border
-        let winrateMargin = cellWidth/2 - textWidth(cardWinrate)
+        let winrateMargin = cellWidth/2 - textWidth(str(cardWinrate))
         print(winrateMargin)
 
 
