@@ -63,7 +63,7 @@ function gotJSON(data) {
     data = Object.fromEntries(entries)
 
     for (let cardName of Object.keys(data)) {
-        cardImages[cardName] = loadImage(`cardImages/${cardName}.png`)
+        cardImages[cardName.split(" // ")[0]] = loadImage(`cardImages/${cardName}.png`)
         detailedCardWindowImages[cardName] = loadImage(`cardImages/${cardName}.png`)
     }
 }
