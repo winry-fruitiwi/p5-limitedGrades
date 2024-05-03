@@ -63,8 +63,11 @@ function gotJSON(data) {
     data = Object.fromEntries(entries)
 
     for (let cardName of Object.keys(data)) {
-        cardImages[cardName.split(" // ")[0]] = loadImage(`cardImages/${cardName}.png`)
-        detailedCardWindowImages[cardName] = loadImage(`cardImages/${cardName}.png`)
+        let firstName = cardName.split(" // ")[0]
+        print(cardName.split(" // "))
+        print(cardName.split(" // ")[0])
+        cardImages[cardName] = `cardImages/${firstName}.png`
+        detailedCardWindowImages[cardName] = `cardImages/${firstName}.png`
     }
 }
 
@@ -436,6 +439,8 @@ function drawCardNames() {
                     (mouseY > cardNamePos.y &&
                         mouseY < rectBottom)
                 ) {
+                    if (!(cardImages[cardName] instanceof p5.Image))
+                        cardImages[cardName] = loadImage(cardImages[cardName])
                     let img = cardImages[cardName]
                     img.resize(300, 0)
                     imageMode(CORNER)
@@ -636,10 +641,17 @@ function displaySingleCardStatUI() {
 
 
     /* card image */
+    if (!(detailedCardWindowImages[cardClickedData["name"]] instanceof p5.Image))
+        detailedCardWindowImages[cardClickedData["name"]] = loadImage(detailedCardWindowImages[cardClickedData["name"]])
     imageMode(CORNER)
     let img = detailedCardWindowImages[cardClickedData["name"]]
-    img.resize(CARD_WIDTH, 0)
-    image(img, 0, textAscent() + CARD_TOP_MARGIN)
+
+    if (img instanceof p5.Image) {
+        img.resize(CARD_WIDTH, 0)
+        image(img, 0, textAscent() + CARD_TOP_MARGIN)
+    } else {
+        return
+    }
 
     let imgWidth = img.width
 
