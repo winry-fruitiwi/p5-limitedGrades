@@ -468,6 +468,9 @@ function drawCardNames() {
                     case ("mythic"):
                         fill(11, 79, 74)
                         break
+                    case (_default):
+                        fill(0, 0, 83)
+                        break
                 }
 
                 rect(cardNamePos.x, cardNamePos.y,
@@ -803,21 +806,25 @@ function displaySingleCardStatUI() {
         "Improvement when drawn": str(round(allPlayerStats["IWD"]*1000)/10) + "pp"
     }
 
-    textFont(variableWidthFont, 16)
     noStroke()
     fill(0, 0, 80)
 
     for (let i = 0; i < Object.keys(messages).length; i++) {
         let message = Object.keys(messages)[i]
+        let lineHeight = textAscent() + textDescent() + 20 // 20 = vertical margin
+
         // display the actual message
         textAlign(LEFT, CENTER)
-        text(message, MORE_STATS_BOX_PADDING, i * (textAscent() + textDescent()))
+        textFont(variableWidthFont, 16)
+        text(message, MORE_STATS_BOX_PADDING,
+            i * (lineHeight))
 
         // display the value that the message defines
         textAlign(RIGHT, CENTER)
+        textFont(font, 16)
         text(messages[message],
             remainingSpace - MORE_STATS_BOX_PADDING,
-            i * (textAscent() + textDescent()))
+            i * (lineHeight) + textDescent()/2) // not sure why this works?
     }
 
     pop()
