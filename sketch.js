@@ -396,38 +396,9 @@ function drawCardNames() {
                     wordPos.x += textWidth(word)
                 }
 
-                fill(0, 0, 25)
-
-                rect(cardNamePos.x, cardNamePos.y,
-                    columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
-                    cardRectHeight)
-
                 let rectRightEdge = cardNamePos.x + columnWidth -
                     COLUMN_PADDING*2 - COLUMN_MARGIN
                 let rectBottom = cardNamePos.y + cardRectHeight
-
-                switch (gradeData[cardName]["rarity"]) {
-                    case ("common"):
-                        fill(0, 0, 83)
-                        break
-                    case ("uncommon"):
-                        fill(214, 14, 51)
-                        break
-                    case ("rare"):
-                        fill(44, 55, 64)
-                        break
-                    case ("mythic"):
-                        fill(11, 79, 74)
-                        break
-                }
-
-
-                rect(cardNamePos.x, cardNamePos.y,
-                    RARITY_STRIP_WIDTH,
-                    cardRectHeight
-                )
-
-                fill(0, 0, 80)
 
                 let currentlyHoveredOver = false
 
@@ -458,7 +429,6 @@ function drawCardNames() {
                         hoverPhotoPos.y = hoverPhotoPos.y - diff
                     }
 
-                    fill(32, 97, 85)
                     currentlyHoveredOver = true
 
                     // if the mouse also just clicked on a card, print its name
@@ -475,6 +445,37 @@ function drawCardNames() {
                         mouseJustClicked = false
                     }
                 }
+
+                fill(0, 0, 25)
+
+                if (currentlyHoveredOver)
+                    fill(0, 0, 22)
+
+                rect(cardNamePos.x, cardNamePos.y,
+                    columnWidth - COLUMN_PADDING*2 - COLUMN_MARGIN,
+                    cardRectHeight)
+
+                switch (gradeData[cardName]["rarity"]) {
+                    case ("common"):
+                        fill(0, 0, 83)
+                        break
+                    case ("uncommon"):
+                        fill(214, 14, 51)
+                        break
+                    case ("rare"):
+                        fill(44, 55, 64)
+                        break
+                    case ("mythic"):
+                        fill(11, 79, 74)
+                        break
+                }
+
+                rect(cardNamePos.x, cardNamePos.y,
+                    RARITY_STRIP_WIDTH,
+                    cardRectHeight
+                )
+
+                fill(0, 0, 80)
 
                 wordPos = new p5.Vector(cardNamePos.x + RARITY_STRIP_WIDTH + RARITY_STRIP_MARGIN,
                     cardNamePos.y)
@@ -502,19 +503,21 @@ function drawCardNames() {
                         wordWidth -= textWidth(" ")
                     }
 
-                    // if the text was hovered over, underline it with a
-                    // line under the entire word
-                    if (currentlyHoveredOver) {
-                        stroke(32, 97, 85) // hovered text color
-                        strokeWeight(2)
-                        line(
-                            wordPos.x, wordPos.y + textAscent(),
-                            wordPos.x + wordWidth, wordPos.y + textAscent()
-                        )
+                    // // if the text was hovered over, underline it with a
+                    // // line under the entire word
+                    // if (currentlyHoveredOver) {
+                    //     stroke(32, 97, 85) // hovered text color
+                    //     strokeWeight(2)
+                    //     line(
+                    //         wordPos.x, wordPos.y + textAscent(),
+                    //         wordPos.x + wordWidth, wordPos.y + textAscent()
+                    //     )
+                    //
+                    //     noStroke()
+                    // }
 
-                        noStroke()
-                    }
-
+                    if (currentlyHoveredOver)
+                        fill(32, 97, 85)
                     text(word, wordPos.x, wordPos.y)
 
                     wordPos.x += textWidth(word)
