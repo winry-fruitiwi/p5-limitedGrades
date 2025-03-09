@@ -273,8 +273,8 @@ function draw() {
         }
     }
 
-    if (frameCount > 3000)
-        noLoop()
+    // if (frameCount > 3000)
+    //     noLoop()
 
     mouseJustClicked = false
     mouseJustClickedOnCard = false
